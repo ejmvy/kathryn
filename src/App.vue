@@ -66,4 +66,36 @@ section {
   flex-direction: column;
   align-items: center;
 }
+
+.designTop,
+.designBottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  height: 60px;
+}
+.line1 {
+  width: 300px;
+  height: 3px;
+  background: #204858;
+  border-radius: 40%;
+}
+.line2 {
+  width: 200px;
+  height: 3px;
+  background: #204858;
+  border-radius: 40%;
+  margin-top: 10px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  background: #204858;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+.designBottom .line1 {
+  margin-top: 10px;
+}
 </style>

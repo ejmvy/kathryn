@@ -1,0 +1,30 @@
+<template>
+  <div class="displayImageArea">
+    <div v-for="img in images" :key="img">
+      <img class="displayImg" :src="require(`../../assets/${img}`)" />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ["images"],
+};
+</script>
+
+<style scoped>
+.displayImageArea {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.displayImg {
+  height: 250px;
+  width: 350px;
+  flex: 1;
+  margin: 20px;
+}
+</style>

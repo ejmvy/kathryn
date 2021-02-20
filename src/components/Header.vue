@@ -4,16 +4,16 @@
       <div class="logo">Kathryn O'Kelly</div>
       <nav>
         <li>
-          <a href="#">About</a>
+          <a href="#">Home</a>
         </li>
         <li>
-          <a href="#">Projects</a>
-        </li>
-        <li>
-          <a href="#">Gallery</a>
+          <a href="#">Shop</a>
         </li>
         <li>
           <a href="#">Contact</a>
+        </li>
+        <li>
+          <a href="#">Gallery</a>
         </li>
       </nav>
     </div>
@@ -52,7 +52,7 @@ header .headerArea nav li {
   text-transform: uppercase;
   margin: 0 30px;
   font-family: "Nova Mono", monospace;
-  padding: 30px 0;
+  padding: 20px 0;
   z-index: 3;
   border-bottom: 1px solid transparent;
   transition: all 0.5s ease;

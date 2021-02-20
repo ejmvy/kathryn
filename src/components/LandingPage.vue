@@ -1,103 +1,11 @@
 <template>
   <MainPhoto></MainPhoto>
   <MainMessage></MainMessage>
+  <Collection></Collection>
+  <AboutArtist></AboutArtist>
+  <!-- <MediaImages></MediaImages> -->
 
-  <section id="whyStaging">
-    <h1>The Process of Ceramics</h1>
-    <div class="reason">
-      <div class="picture">
-        <img class="reasonImage" src="https://i.ibb.co/r2dQ5Jd/A.jpg" />
-      </div>
-      <div class="reasonText">
-        <div class="designTop">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="textSection">
-          <h2>Increased Buyer Interest</h2>
-          <p>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don't look even slightly
-            believable. If you are going to use a passage of Lorem Ipsum, you
-            need to be sure there isn't anything embarrassing hidden in the
-            middle of text.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="reason">
-      <div class="reasonText">
-        <div class="designTop">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="textSection">
-          <h2>Higher Sales Price</h2>
-          <p>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don't look even slightly
-            believable. If you are going to use a passage of Lorem Ipsum, you
-            need to be sure there isn't anything embarrassing hidden in the
-            middle of text.
-          </p>
-        </div>
-      </div>
-      <div class="picture">
-        <img class="reasonImage" src="https://i.ibb.co/r2dQ5Jd/A.jpg" />
-      </div>
-    </div>
-    <div class="reason">
-      <div class="picture">
-        <img class="reasonImage" src="https://i.ibb.co/r2dQ5Jd/A.jpg" />
-      </div>
-      <div class="reasonText">
-        <div class="designTop">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="textSection">
-          <h2>Sell Property Faster</h2>
-          <p>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don't look even slightly
-            believable. If you are going to use a passage of Lorem Ipsum, you
-            need to be sure there isn't anything embarrassing hidden in the
-            middle of text.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="reason">
-      <div class="reasonText">
-        <div class="designTop">
-          <div class="line1"></div>
-          <div class="line2"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="textSection">
-          <h2>Allow Buyers To Visualise</h2>
-          <p>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don't look even slightly
-            believable. If you are going to use a passage of Lorem Ipsum, you
-            need to be sure there isn't anything embarrassing hidden in the
-            middle of text.
-          </p>
-        </div>
-      </div>
-      <div class="picture">
-        <img class="reasonImage" src="https://i.ibb.co/r2dQ5Jd/A.jpg" />
-      </div>
-    </div>
-  </section>
-  <section id="projectCircles">
+  <!-- <section id="projectCircles">
     <h1>Recent projects</h1>
     <div class="circleCanvas">
       <a class="circlePosition" href="#" id="topLeft">
@@ -177,52 +85,26 @@
       </p>
       <button class="btn">Contact Us</button>
     </div>
-  </section>
+  </section> -->
 </template>
 
 <script>
 import MainPhoto from "./LandingPage/TopPhoto.vue";
 import MainMessage from "./LandingPage/MainMessage.vue";
+import Collection from "./LandingPage/Collection.vue";
+import AboutArtist from "./LandingPage/AboutArtist.vue";
+
 export default {
   components: {
     MainPhoto,
     MainMessage,
+    Collection,
+    AboutArtist,
   },
 };
 </script>
 
 <style scoped>
-#whyStaging {
-  padding-top: 30px;
-  width: 100%;
-  background: #eaeaea;
-}
-#whyStaging .reason {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px;
-}
-#whyStaging .reason .picture {
-  width: 50%;
-  height: 80%;
-  flex: 2;
-}
-#whyStaging .reason .picture .reasonImage {
-  width: 100%;
-  height: 100%;
-}
-#whyStaging .reason .reasonText {
-  flex: 1;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background: white;
-  box-shadow: 0 5px 15px #ccc;
-}
 #projectCircles {
   padding-top: 50px;
   background: white;

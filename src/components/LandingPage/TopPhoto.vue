@@ -17,7 +17,7 @@
         using Lorem Ipsum is that it has a more-or-less normal distribution of
         letters.
       </p>
-      <button class="btn">Contact Us</button>
+      <button class="btn">SHOP NOW</button>
     </div>
   </section>
 </template>
@@ -45,7 +45,7 @@
   /* background: rgba(234, 234, 234, 0.6); */
   background: rgba(250, 250, 250, 0.9);
   width: 40%;
-  padding: 20px 40px 40px 40px;
+  padding: 10px 40px 30px 40px;
   z-index: 4;
   box-shadow: 0 5px 15px #ccc;
 }
