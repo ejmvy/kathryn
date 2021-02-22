@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import LandingPage from '@/components/LandingPage.vue';
 import Shop from '@/components/Shop.vue';
+import ItemDisplay from '@/components/ItemDisplay.vue';
 
 
 const routes = [
@@ -13,7 +14,12 @@ const routes = [
         path: '/shop',
         name: 'Shop',
         component: Shop,
-    }
+    },
+    {
+        path: '/item/:id',
+        name: 'ItemDisplay',
+        component: ItemDisplay,
+    },
 ]
 
 const router = createRouter({

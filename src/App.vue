@@ -44,6 +44,7 @@ h5 {
 }
 p {
   font-family: "Open Sans Condensed", sans-serif;
+  font-size: 15px;
 }
 .btn {
   padding: 10px 50px;

@@ -1,5 +1,7 @@
 <template>
+    <router-link :to="{ name: 'ItemDisplay', params: {id: displayItem.id } }">
     <img class='itemImage' :src='require(`../../assets/${displayItem.img}`)' />
+    </router-link>
     <h3>{{ displayItem.name }}</h3>
     <p>{{ displayItem.price }}</p>
     <button class='btn smBtn'>Add to Cart</button>

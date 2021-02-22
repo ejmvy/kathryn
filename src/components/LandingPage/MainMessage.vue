@@ -2,7 +2,7 @@
   <section id="welcomeMessage">
     <div class="welcome">
       <div class="message">
-        <p>"Thoughtful, Authentic, Personal"</p>
+        <h2>"Thoughtful, Authentic, Personal"</h2>
       </div>
     </div>
     <LatestDesigns></LatestDesigns>
