@@ -1,18 +1,18 @@
 <template>
   <Header></Header>
-  <LandingPage></LandingPage>
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+  <router-view></router-view>
+  <Footer></Footer>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-import LandingPage from "./components/LandingPage.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Header,
-    LandingPage,
+    Footer,
   },
 };
 </script>
@@ -61,10 +61,17 @@ p {
   background: #204858;
   color: white;
 }
+
+.smBtn {
+  margin-top: 0 !important;
+  padding: 8px 15px;
+  font-size: 12px;
+}
 section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 50px;
 }
 
 .designTop,

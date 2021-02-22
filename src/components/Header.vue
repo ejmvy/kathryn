@@ -4,16 +4,21 @@
       <div class="logo">Kathryn O'Kelly</div>
       <nav>
         <li>
-          <a href="#">Home</a>
+          <router-link to="/">Home</router-link>
         </li>
         <li>
-          <a href="#">Shop</a>
+          <router-link to="/shop">Shop</router-link>
         </li>
         <li>
           <a href="#">Contact</a>
         </li>
         <li>
           <a href="#">Gallery</a>
+        </li>
+        <li>
+          <a href="#">
+            <img class='cartLogo' src='../assets/logos/cart.png' />
+          </a>
         </li>
       </nav>
     </div>
@@ -45,6 +50,7 @@ header .headerArea .logo {
 }
 header .headerArea nav {
   display: flex;
+  align-items: center;
 }
 header .headerArea nav li {
   list-style: none;
@@ -66,5 +72,10 @@ header .headerArea nav li:hover {
 }
 header .headerArea nav li:hover a {
   color: #eaeaea;
+}
+
+.cartLogo {
+  width: 30px;
+  height: 30px;
 }
 </style>
