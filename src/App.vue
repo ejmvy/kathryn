@@ -1,6 +1,8 @@
 <template>
   <Header></Header>
-  <router-view></router-view>
+  <div class='indexMain'>
+    <router-view></router-view>
+  </div>
   <Footer></Footer>
 </template>
 
@@ -68,7 +70,21 @@ p {
   padding: 8px 15px;
   font-size: 12px;
 }
+
+.contactBtn {
+    border: 2px solid white;
+    color: white;
+}
+
+.contactBtn:hover {
+    background: white;
+    color: #204858;
+}
+.contactBtn:focus {
+  outline: none;
+}
 section {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,4 +122,5 @@ section {
 .designBottom .line1 {
   margin-top: 10px;
 }
+
 </style>

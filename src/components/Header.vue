@@ -10,28 +10,50 @@
           <router-link to="/shop">Shop</router-link>
         </li>
         <li>
-          <a href="#">Contact</a>
+          <router-link to="/contact">Contact</router-link>
         </li>
         <li>
           <a href="#">Gallery</a>
         </li>
         <li>
           <a href="#">
-            <img class='cartLogo' src='../assets/logos/cart.png' />
+            <img class='cartLogo' src='../assets/logos/cart.png' @click='openCart()'/>
           </a>
         </li>
       </nav>
     </div>
   </header>
+
+  <div :class="{'cartOpened': cartOpen}">
+    <div class='cartImport'>
+      <CartPopup></CartPopup>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {};
+import CartPopup from '../components/views/CartPopup.vue';
+export default {
+  data() {
+    return {
+      cartOpen: false
+    }
+  },
+  methods: {
+    openCart() {
+      this.cartOpen = !this.cartOpen;
+    }
+  },
+  components: {
+    CartPopup
+  }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 header {
+
   width: 100%;
   position: absolute;
   background: rgba(32, 72, 88, 0.7);
@@ -78,4 +100,18 @@ header .headerArea nav li:hover a {
   width: 30px;
   height: 30px;
 }
+
+.cartImport {
+  position: relative;
+  right: -100px;
+  opacity: 0;
+  transition: right 0.3s, opacity 0.3s;
+}
+
+.cartOpened .cartImport {
+  right: 0;
+  opacity: 1;
+}
+
+
 </style>

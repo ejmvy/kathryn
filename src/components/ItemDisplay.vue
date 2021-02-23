@@ -99,7 +99,7 @@ p {
 
 .shopPage {
   padding-top: 120px;
-  margin-bottom: 80px;
+  /* margin-bottom: 80px; */
 }
 
 .shopNavInfo {

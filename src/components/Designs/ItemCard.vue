@@ -19,8 +19,9 @@ export default {
         width: 250px;
         height: 200px;
         box-shadow: 0 0 4px #666666;
-        margin-top: 50px;
+        /* margin-top: 50px; */
         cursor: pointer;
+        margin: 80px 30px 0 30px;
     }
 
     p {
