@@ -1,6 +1,6 @@
 <template>
   <Header></Header>
-  <div class='indexMain'>
+  <div class="indexMain">
     <router-view></router-view>
   </div>
   <Footer></Footer>
@@ -72,14 +72,16 @@ p {
 }
 
 .contactBtn {
-    border: 2px solid white;
-    color: white;
+  border: 2px solid white;
+  color: white;
 }
 
 .contactBtn:hover {
-    background: white;
-    color: #204858;
+  background: white;
+  color: #204858;
 }
+.contactBtn:focus,
+.btn:focus,
 .contactBtn:focus {
   outline: none;
 }
@@ -122,5 +124,4 @@ section {
 .designBottom .line1 {
   margin-top: 10px;
 }
-
 </style>
