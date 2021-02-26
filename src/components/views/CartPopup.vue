@@ -19,7 +19,9 @@
         />
       </div>
     </div>
+    <router-link to='/cart'>
     <button class="btn contactBtn">View Cart</button>
+    </router-link>
   </div>
 </template>
 
@@ -92,7 +94,9 @@ p {
   box-shadow: 0 0 3px #666666;
   border-radius: 10px;
   padding-bottom: 20px;
+
 }
+
 
 .shopItems {
   margin-top: 40px;

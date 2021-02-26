@@ -4,6 +4,7 @@ import Shop from '@/components/Shop.vue';
 import ItemDisplay from '@/components/ItemDisplay.vue';
 import Contact from '@/components/views/Contact.vue';
 import Admin from '@/components/views/Admin.vue';
+import CartView from '@/components/views/CartView.vue';
 
 
 const routes = [
@@ -31,6 +32,11 @@ const routes = [
         path: '/admin',
         name: 'Admin',
         component: Admin,
+    },
+    {
+        path: '/cart',
+        name: 'Cart',
+        component: CartView,
     },
 ]
 
