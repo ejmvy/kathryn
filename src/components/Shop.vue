@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <section class="shopPage">
     <TitleDesign :title="titleText"></TitleDesign>
     <div class="shopInfo">
@@ -11,9 +12,12 @@
       </div>
     </div>
   </section>
+  <Footer></Footer>
 </template>
 
 <script>
+import Header from "./Header.vue";
+import Footer from "./Footer.vue";
 import TitleDesign from "../components/Designs/TitleDesign.vue";
 import ItemCard from "../components/Designs/ItemCard.vue";
 export default {
@@ -34,6 +38,8 @@ export default {
       });
   },
   components: {
+    Header,
+    Footer,
     TitleDesign,
     ItemCard,
   },

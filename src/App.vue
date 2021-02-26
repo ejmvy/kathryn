@@ -1,25 +1,25 @@
 <template>
-  <Header></Header>
   <div class="indexMain">
     <router-view></router-view>
   </div>
-  <Footer></Footer>
+  <!-- <Footer></Footer> -->
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+// import Header from "./components/Header.vue";
+// import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
-    Footer,
+    // Header,
+    // Footer,
   },
 };
 </script>
 
 <style>
+/* light blue: #365a69; */
 body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -3,6 +3,7 @@ import LandingPage from '@/components/LandingPage.vue';
 import Shop from '@/components/Shop.vue';
 import ItemDisplay from '@/components/ItemDisplay.vue';
 import Contact from '@/components/views/Contact.vue';
+import Admin from '@/components/views/Admin.vue';
 
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
         path: '/contact',
         name: 'Contact',
         component: Contact,
+    },
+    {
+        path: '/admin',
+        name: 'Admin',
+        component: Admin,
     },
 ]
 
