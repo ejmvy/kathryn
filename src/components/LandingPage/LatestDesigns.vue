@@ -1,6 +1,9 @@
 <template>
-  <TitleDesign :title="titleHeader"></TitleDesign>
-  <ImageDisplay :images="recentImages"></ImageDisplay>
+  <section>
+    <TitleDesign :title="titleHeader"></TitleDesign>
+    <ImageDisplay :images="recentImages"></ImageDisplay>
+
+  </section>
 </template>
 
 <script>

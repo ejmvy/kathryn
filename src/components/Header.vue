@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="headerArea">
-      <div class="logo">Kathryn O'Kelly</div>
+      <div class="logo">Ceramics By Kathryn</div>
       <nav>
         <li>
           <router-link to="/">Home</router-link>
@@ -60,6 +60,7 @@ header {
   width: 100%;
   position: absolute;
   background: rgba(32, 72, 88, 0.7);
+  box-shadow: 0 5px 10px 5px #ccc;
 }
 
 header .headerArea {

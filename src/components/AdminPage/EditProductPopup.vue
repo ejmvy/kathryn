@@ -9,17 +9,17 @@
         <div class="inputArea">
           <label>Name:</label>
           <input
-            
             type="text"
             :value="productObject.name"
+            @change="saveEdit('name')"
           />
-          <!-- v-model="editedProduct.name" -->
         </div>
         <div class="inputArea">
           <label>Price:</label>
           <input
             type="text"
             :value="productObject.price"
+            @change="saveEdit('price')"
           />
         </div>
       </div>
@@ -28,21 +28,44 @@
         <input
           type="text"
           :value="productObject.description"
+          @change="saveEdit('description')"
         />
       </div>
       <div class="inputArea">
         <label>Washing:</label>
-        <input v-model="editedProduct.washing" type="text" />
+        <input 
+          :value="productObject.washing" 
+          type="text" 
+          @change="saveEdit('washing')"
+        />
       </div>
       <div>
         <div class="topLine">
           <div class="inputArea">
             <label>Dimensions:</label>
-            <input v-model="editedProduct.dimensions" type="text" />
+            <input 
+              class='smInput'
+              :value="productObject.dimensions" 
+              type="text" 
+              @change="saveEdit('dimensions')"
+            />
+          </div>
+          <div class="inputArea">
+            <label>Stock No:</label>
+            <input 
+              class='smInput'
+              :value="productObject.numberInStock" 
+              type="text" 
+              @change="saveEdit('stock')"
+            />
           </div>
           <div class="inputArea">
             <label>Colours:</label>
-            <input v-model="editedProduct.colours" type="text" />
+            <input 
+              :value="productObject.colour" 
+              type="text" 
+              @change="saveEdit('colour')"
+            />
           </div>
         </div>
 
@@ -71,22 +94,58 @@ export default {
     };
   },
   methods: {
+    saveEdit(edit) {
+      console.log(event.target.value);
+      return this.editedProduct[edit] = event.target.value;
+      
+    },
     saveEdits() {
-      console.log("EDITS");
-      console.log(this.productObject);
-    //   fetch(`http://localhost:3000/products/${this.productObject._id}`, {
-    //       method: 'PUT',
-    //       headers: {
-    //           'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         name: this.editedProduct.name,
-    //         price: this.editedProduct.price,
-    //         genreId: this.productObject.category._id,
-    //         description: this.editedProduct.description,
+      // console.log("OLD");
+      // console.log(this.productObject);
+      
 
-    //       })
-    //   })
+      const newEdits = {
+        name: this.editedProduct.name ? this.editedProduct.name : this.productObject.name,
+        price: this.editedProduct.price ? this.editedProduct.price : this.productObject.price,
+        description: this.editedProduct.description ? this.editedProduct.description : this.productObject.description,
+        washing: this.editedProduct.washing ? this.editedProduct.washing : this.productObject.washing,
+        dimensions: this.editedProduct.dimensions ? this.editedProduct.dimensions : this.productObject.dimensions,
+        colour: this.editedProduct.colour ? this.editedProduct.colour : this.productObject.colour,
+      }
+
+    console.log("FINAL");
+      console.log(newEdits);
+
+
+      fetch(`http://localhost:3000/api/products/${this.productObject._id}`, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: newEdits.name,
+            price: newEdits.price,
+            genreId: this.productObject.category._id,
+            description: newEdits.description,
+            washing: newEdits.washing,
+            dimensions: newEdits.dimensions,
+            colour: newEdits.colour,
+
+          })
+      })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log('RETURNED: ');
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+
+      this.$emit('refreshList', this.productObject.category._id);
+
       this.closePopup();
     },
     closePopup() {
@@ -94,8 +153,8 @@ export default {
     },
   },
   created() {
-      console.log('EDIT OBJECT:')
-      console.log(this.productObject);
+      // console.log('EDIT OBJECT:')
+      // console.log(this.productObject);
   }
 };
 </script>
@@ -117,7 +176,7 @@ export default {
 .ImageArea {
   /* width: 60%; */
   /* width: 500px; */
-  /* flex: 2 ; */
+  flex: 1;
   display: flex;
 }
 
@@ -127,7 +186,7 @@ export default {
 }
 
 .textArea {
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: column;
   padding: 5px;
@@ -144,14 +203,16 @@ button {
 }
 
 input {
-  /* background: #f2f2f2; */
   box-shadow: inset 0 0 5px #ccc;
   padding: 15px;
-  /* width: 100%; */
   border: none;
   border-bottom: 1px solid #ccc;
   transition: all 0.2s ease-in-out;
   margin: 10px 20px;
+}
+
+.smInput {
+  width: 60px;
 }
 
 input:focus {

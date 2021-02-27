@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'ItemDisplay', params: { id: displayItem.id } }">
+  <router-link :to="{ name: 'ItemDisplay', params: { id: displayItem._id } }">
     <!-- <img class='itemImage' :src='require(`../../assets/${displayItem.img}`)' /> -->
     <img class="itemImage" src="../../assets/latestDesigns/mug2.jpeg" />
   </router-link>

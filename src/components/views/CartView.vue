@@ -4,25 +4,43 @@
          <div class='purchases'>
             <table>
                 <tr class='headerTitle'>
-                    <td>Product</td>
+                    <td class='alignLeft'>Product</td>
                     <td>Price</td>
                     <td>Quantity</td>
                     <td>Total</td>
                 </tr>
-                <tr v-for='product in cartItems' :key='product'>
-                    <td>
-                        <div class='productDesc'>
-                            <img class='productIcon' src='../../assets/latestDesigns/misc1.jpeg' />
-                            <p>{{ product.name }}</p>
-                            <div class='light'>Beige</div>
-                            <div class='light'>{{ product._id }}</div>
-                            
-                        </div>
-                    </td>
-                    <td class='infoDetails'>{{ product.price }}</td>
-                    <td class='infoDetails'>{{ product.quantity }}</td>
-                    <td class='infoDetails'>{{ total }}</td>
-                </tr>
+                <div class='cartListArea'>
+                    <tr class='cartItem'  v-for='(product, idx) in cartItems' :key='idx'>
+                            <td>
+                            <div class='productDesc'>
+                                <img class='productIcon' src='../../assets/latestDesigns/misc1.jpeg' />
+                                <p>{{ product.name }}</p>
+                                <div class='light'>Beige</div>
+                                <div class='light'>{{ product._id }}</div>
+                                
+                            </div>
+                        </td>
+                        <td class='infoDetails'>{{ product.price }}</td>
+                        
+                        <td class='infoDetails'>
+                            <div class='quantityArea'>
+                                <div class='iconArea' @click='minusPrice(product)'>
+                                    <div class='minusBtn'></div>
+                                </div>
+                                <div>{{ product.quantity }}</div>
+                                <div @click='plusPrice(product)' class='plusBtn'>+</div>
+                            </div>
+                            <div :class="{'removeAppear': product.quantity === 0}">
+                                <div @click='removeItem(product, idx)' class='removeBtn'>Remove</div>
+                            </div>
+                        </td>
+                        <td class='infoDetails'>{{ (product.price * product.quantity).toFixed(2) }}</td>
+                        
+                    </tr>
+                </div>
+                <div v-if='cartItems.length > 3' class='downIconArea'>
+                    <img class='downIcon' src='../../assets/down-green.png' />
+                </div>
             </table>
          </div>
          <div class='buySection'>
@@ -33,7 +51,7 @@
              </div>
              <div class='buyPanel'>
              <div class='buyingInfo'>
-                <h3>Total: {{total}}</h3>
+                <h3>Total: {{getTotal}}</h3>
                 <p>Shipping & Postage Included</p>
              </div>
             <div class='checkoutBtns'>
@@ -53,7 +71,48 @@ export default {
     data() {
         return {
             cartItems: [],
-            total: 0
+            total: 0,
+            isRemoved: false
+        }
+    },
+    methods: {
+        minusPrice(product) {
+            product.quantity = product.quantity > 0 ? product.quantity - 1 : product.quantity;
+        },
+        plusPrice(product) {
+            product.quantity = product.quantity + 1;
+        },
+        removeItem(product, idx) {
+            product.isRemoved = true;
+            console.log("DELETE");
+            console.log(product);
+            fetch(`http://localhost:3000/api/cart/${product._id}`, {
+                method: 'DELETE',
+                'Content-Type': 'application/json'
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            
+            this.cartItems.splice(idx, 1);
+            
+            // this.isRemoved = false;
+        }
+    },
+    computed: {
+        getTotal: function() {
+            var totalValue = 0;
+            this.cartItems.forEach(product => {
+                let productTotal =  product.price * product.quantity;
+                totalValue = totalValue + productTotal;
+            })
+            return totalValue.toFixed(2);
         }
     },
     created() {
@@ -94,7 +153,10 @@ button {
 }
 
 .hide {
+    color: red;
+    border: 3px solid green;
   opacity: 0;
+  transition: all 2s ease-in-out;
 }
 
 .show {
@@ -127,6 +189,18 @@ button {
     flex: 2;
     padding: 20px;
     /* border: 2px solid yellow; */
+    padding-left: 50px;
+}
+
+.cartListArea {
+    overflow: auto;
+    height: 500px;
+    transition: all 5s ease-in-out;
+    /* border: 1px solid red; */
+}
+
+.cartItem {
+    transition: all 5s ease-in-out;
 }
 
 .buySection {
@@ -146,6 +220,7 @@ table {
 td {
     text-align: center;
     flex: 1;
+    /* border: 1px solid red; */
 }
 
 .headerTitle {
@@ -163,6 +238,11 @@ tr {
     justify-content: space-between;
     /* align-items: center; */
     text-align: center;
+    /* border: 1px solid blue; */
+}
+
+.alignLeft {
+    text-align: left;
 }
 
 .productDesc {
@@ -170,6 +250,7 @@ tr {
     flex-direction: column;
     text-align: left;
     margin-bottom: 20px;
+    /* padding: 0 30px; */
 }
 
 .productDesc p {
@@ -184,7 +265,7 @@ tr {
 .infoDetails {
     /* border: 1px solid green; */
     position: relative;
-    top: 20px;
+    padding-top: 25px;
 }
 
 .topIcon {
@@ -201,6 +282,18 @@ tr {
     cursor: pointer;
 }
 
+.downIconArea {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    bottom: 30px;
+}
+
+.downIcon {
+    height: 20px;
+    width: 20px;
+}
+
 .buyPanel {
     position: relative;
     top: 25%;
@@ -209,5 +302,58 @@ tr {
 
 .checkoutBtns {
     padding-top: 30px;
+}
+
+.quantityArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid green; */
+}
+
+.iconArea {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.minusBtn, .plusBtn {
+    margin: 0 30px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #365a69;
+    /* border: 1px solid red; */
+}
+
+.plusBtn {
+    font-weight: bold;
+    margin-top: -2px;
+}
+
+.minusBtn {
+    width: 10px;
+    height: 2px;
+    background: #365a69;
+    /* padding: 5px 0; */
+}
+
+.removeBtn {
+    margin-top: 40px;
+    /* padding-bottom: 5px; */
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* .cartImport {
+  position: relative;
+  right: -100px;
+  opacity: 0;
+  transition: right 0.3s, opacity 0.3s;
+} */
+
+.removeAppear .removeBtn {
+  opacity: 1;
 }
 </style>

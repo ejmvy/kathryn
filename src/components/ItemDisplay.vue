@@ -1,4 +1,5 @@
 <template>
+<Header></Header>
     <section class="shopPage">
         <div class='shopNavInfo'>
             <p>Collection  /  All  /  {{ item.name }} </p>
@@ -7,12 +8,12 @@
         <div class='displayArea'>
             <div class='imageArea'>
                 <div class='smallImages'>
-                    <div v-for='smImg in item.smImages' :key='smImg'>
+                    <div v-for='smImg in displayItem.smImages' :key='smImg'>
                         <img class='smImageDisplay' :src='require(`../assets/${smImg}`)' />
                     </div>
                 </div>
                 <div class='lrgImage'>
-                    <img class='lrgImageDisplay' :src='require(`../assets/${item.img}`)' />
+                    <img class='lrgImageDisplay' :src='require(`../assets/${displayItem.img}`)' />
                 </div>
             </div>
 
@@ -51,16 +52,20 @@
         <FrequentQuestions></FrequentQuestions>
 
     </section>
+    <Footer></Footer>
 </template>
 
 <script>
+import Header from "./Header.vue";
+import Footer from "./Footer.vue";
 import ProductDescription from './ItemDisplayPage/ProductDesription.vue';
 import FrequentQuestions from './ItemDisplayPage/FrequentQuestions.vue';
 
 export default {
     data() {
         return {
-            item:  {
+            item: {},
+            displayItem:  {
               'name': 'Bowl 1',
               'id': '1',
               'price': '14.99',
@@ -78,7 +83,20 @@ export default {
           },
         }
     },
+    created() {
+        fetch(`http://localhost:3000/api/products/${this.$route.params.id}`)
+        .then((res) => {
+            return res.json();
+        })
+        .then((data) => {
+            console.log('DISPLAY ITEM');
+            console.log(data);
+            this.item = data;
+        })
+    },
     components: {
+        Header,
+        Footer,
         ProductDescription,
         FrequentQuestions,
     }

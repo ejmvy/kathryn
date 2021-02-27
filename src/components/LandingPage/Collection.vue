@@ -60,7 +60,7 @@ export default {
 
 <style scoped>
 #collectionArea {
-  background: #eaeaea;
+  background: #f5f5f5;
   padding-bottom: 30px;
 }
 </style>

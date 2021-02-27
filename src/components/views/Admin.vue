@@ -27,7 +27,7 @@
         </div>
         <div class="panelSection productPanel">
           <div class="productSection">
-            <h4>Products</h4>
+            <h4 v-if='categorySelected'>Products</h4>
 
             <div class="scroll">
               <div
@@ -59,6 +59,7 @@
             </div>
 
             <button
+              v-if='categorySelected'
               @click="addNewProduct()"
               class="btn categoryPadding"
             >
@@ -75,6 +76,7 @@
                   <EditProductPopup
                     :productObject="productToEdit"
                     @closePopup="closeEditPopup"
+                    @refreshList='refreshProducts'
                   ></EditProductPopup>
                 </div>
     </div>
@@ -92,6 +94,7 @@ export default {
       productList: [],
       showAddCategoryPopup: false,
       showEditProductPopup: false,
+      categorySelected: false,
     productToEdit: {},
     };
   },
@@ -102,15 +105,14 @@ export default {
           return res.json();
         })
         .then((data) => {
-          console.log("category items: ", data);
           this.productList = data;
         });
+        this.categorySelected = true;
     },
     deleteProduct(product) {
       console.log("DELETE PRODUCT", product);
     },
     editProduct(product) {
-      console.log("EDIT PRODUCT");
       this.productToEdit = product;
       product.edit = !product.edit;
       this.hideProductBtn = !this.hideProductBtn;
@@ -138,6 +140,16 @@ export default {
     closeEditPopup() {
       this.showEditProductPopup = false;
     },
+    refreshProducts(genreId) {
+       fetch(`http://localhost:3000/api/products/category/${genreId}`)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log("category items: ", data);
+          this.productList = data;
+        });
+    }
   },
   created() {
     fetch("http://localhost:3000/api/categories/")

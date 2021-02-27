@@ -31,7 +31,7 @@ body {
 
 h1 {
   font-family: "Nova Mono", monospace;
-  font-size: 35px;
+  font-size: 30px;
   text-transform: uppercase;
 }
 h2 {
@@ -46,10 +46,15 @@ h5 {
 }
 p {
   font-family: "Open Sans Condensed", sans-serif;
-  font-size: 15px;
+  /* font-family: Monserrat; */
+  font-size: 14px;
+  color: #666666;
+  letter-spacing: 1.5px;
+  line-height: 1.8;
+
 }
 .btn {
-  padding: 10px 50px;
+  padding: 8px 40px;
   text-transform: uppercase;
   font-family: "Nova Mono", monospace;
   background: none;
@@ -91,7 +96,14 @@ section {
   flex-direction: column;
   align-items: center;
   padding-bottom: 50px;
+  /* border: 2px solid red; */
 }
+
+/* @media only screen and (min-width:1000px) {
+  section {
+    /* padding: 0 100px; 
+  }
+} */
 
 .designTop,
 .designBottom {
