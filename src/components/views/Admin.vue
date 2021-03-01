@@ -1,5 +1,8 @@
 <template >
   <div class="adminBg">
+    <div v-if='showNotification'>
+      <Notification :type='notificationType'></Notification>
+    </div>
     <div class="adminArea">
       <!-- v-bind:class="[showAddCategoryPopup ? 'hide' : 'show']" -->
       <h3>Admin Panel - Welcome Kathryn!</h3>
@@ -39,7 +42,7 @@
                   <div class="productDesc">
                     <div class="itemName">{{ product.name }}</div>
                     <div class="itemFont">{{ product.price }}</div>
-                    <div class="itemFont">{{ product.quantity }}</div>
+                    <div class="itemFont">{{ product.numberInStock }}</div>
                   </div>
                   <div class="productIcons">
                     <img
@@ -60,7 +63,7 @@
 
             <button
               v-if='categorySelected'
-              @click="addNewProduct()"
+              @click="addNewProductBtn()"
               class="btn categoryPadding"
             >
               Add Product
@@ -72,13 +75,18 @@
         <!-- :class="{ popupOpened: showAddCategoryPopup }" -->
         <AddNewPopup @category-saved="saveNewCategory"></AddNewPopup>
       </div>
-                <div v-if="showEditProductPopup">
-                  <EditProductPopup
-                    :productObject="productToEdit"
-                    @closePopup="closeEditPopup"
-                    @refreshList='refreshProducts'
-                  ></EditProductPopup>
-                </div>
+      <div v-if="showEditProductPopup">
+        <EditProductPopup
+          :productObject="productToEdit"
+          @saveProduct='saveProductEdits'
+          @closePopup="closeEditPopup"
+        ></EditProductPopup>
+                  <!-- 
+          @refreshList='refreshProducts' -->
+      </div>
+      <!-- <div v-if='showNewProductPopup'>
+
+      </div> -->
     </div>
   </div>
 </template>
@@ -86,6 +94,7 @@
 <script>
 import AddNewPopup from "../AdminPage/AddNewPopup.vue";
 import EditProductPopup from "../AdminPage/EditProductPopup.vue";
+import Notification from '../../components/Designs/Notification.vue';
 export default {
   data() {
     return {
@@ -94,8 +103,11 @@ export default {
       productList: [],
       showAddCategoryPopup: false,
       showEditProductPopup: false,
-      categorySelected: false,
-    productToEdit: {},
+      showNewProductPopup: false,
+      categorySelected: '',
+      notificationType: '',
+      showNotification: '',
+      productToEdit: {},
     };
   },
   methods: {
@@ -107,7 +119,7 @@ export default {
         .then((data) => {
           this.productList = data;
         });
-        this.categorySelected = true;
+        this.categorySelected = category._id;
     },
     deleteProduct(product) {
       console.log("DELETE PRODUCT", product);
@@ -118,8 +130,9 @@ export default {
       this.hideProductBtn = !this.hideProductBtn;
       this.showEditProductPopup = !this.showEditProductPopup;
     },
-    addNewProduct() {
+    addNewProductBtn() {
       console.log("ADD NEW PRODUCT");
+      this.showEditProductPopup = true;
     },
     addNewCategory() {
       console.log("ADD NEW CATEGORY");
@@ -138,10 +151,11 @@ export default {
       this.showAddCategoryPopup = false;
     },
     closeEditPopup() {
+      this.productToEdit = {};
       this.showEditProductPopup = false;
     },
-    refreshProducts(genreId) {
-       fetch(`http://localhost:3000/api/products/category/${genreId}`)
+    refreshProducts() {
+       fetch(`http://localhost:3000/api/products/category/${this.categorySelected}`)
         .then((res) => {
           return res.json();
         })
@@ -149,6 +163,67 @@ export default {
           console.log("category items: ", data);
           this.productList = data;
         });
+    },
+    saveProductEdits(productInfo) { 
+      console.log('SAVING: ');
+        console.log(productInfo);     
+      if (productInfo._id) {
+        console.log('product edited');
+        this.saveEditedProduct(productInfo);
+      } else {
+        console.log('new product');
+        productInfo.genreId = this.categorySelected;
+        console.log(productInfo);  
+        this.addNewProduct(productInfo);
+      }
+      this.closeEditPopup();
+      this.productToEdit = {};
+    },
+    saveEditedProduct(productObj) {
+      fetch(`http://localhost:3000/api/products/${productObj._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(productObj)
+      })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        this.refreshProducts();
+        this.notificationType = true;
+        this.showNotification = true;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.notificationType = false;
+        this.showNotification = true;
+      })
+    },
+    addNewProduct(productObj) {
+      fetch(`http://localhost:3000/api/products/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(productObj)
+      })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        this.refreshProducts();
+        this.notificationType = true;
+        this.showNotification = true;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.notificationType = false;
+        this.showNotification = true;
+      })
     }
   },
   created() {
@@ -163,6 +238,7 @@ export default {
   components: {
     AddNewPopup,
     EditProductPopup,
+    Notification
   },
 };
 </script>

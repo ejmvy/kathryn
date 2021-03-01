@@ -346,12 +346,9 @@ tr {
     transition: opacity 0.3s;
 }
 
-/* .cartImport {
-  position: relative;
-  right: -100px;
-  opacity: 0;
-  transition: right 0.3s, opacity 0.3s;
-} */
+.buyingInfo p {
+    color: white;
+}
 
 .removeAppear .removeBtn {
   opacity: 1;

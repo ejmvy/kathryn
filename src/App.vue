@@ -27,6 +27,11 @@ body {
   text-align: center;
   color: #2c3e50;
   margin: 0 auto;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 h1 {

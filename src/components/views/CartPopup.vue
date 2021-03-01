@@ -126,6 +126,11 @@ p {
   /* position: relative;
         top: 25%; */
 }
+
+.itemDesc p {
+  color: #ccc;
+}
+
 .binLogo {
   height: 20px;
   width: 20px;
