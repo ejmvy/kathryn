@@ -1,10 +1,12 @@
 <template >
   <div class="adminBg">
-    <div v-if='showNotification'>
-      <Notification :type='notificationType'></Notification>
+    <div class='noteAppear'>
+      <transition name='appear' :duration="{ enter: 800, leave: 800 }">
+        <Notification v-if='showNotification' :type='notificationType'></Notification>
+      </transition>
+
     </div>
     <div class="adminArea">
-      <!-- v-bind:class="[showAddCategoryPopup ? 'hide' : 'show']" -->
       <h3>Admin Panel - Welcome Kathryn!</h3>
       <div class="adminPanel">
         <div class="panelSection categoryPanel">
@@ -72,7 +74,6 @@
         </div>
       </div>
       <div v-if="showAddCategoryPopup">
-        <!-- :class="{ popupOpened: showAddCategoryPopup }" -->
         <AddNewPopup @category-saved="saveNewCategory"></AddNewPopup>
       </div>
       <div v-if="showEditProductPopup">
@@ -81,12 +82,7 @@
           @saveProduct='saveProductEdits'
           @closePopup="closeEditPopup"
         ></EditProductPopup>
-                  <!-- 
-          @refreshList='refreshProducts' -->
       </div>
-      <!-- <div v-if='showNewProductPopup'>
-
-      </div> -->
     </div>
   </div>
 </template>
@@ -195,11 +191,19 @@ export default {
         this.refreshProducts();
         this.notificationType = true;
         this.showNotification = true;
+
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 2000)
+
       })
       .catch((err) => {
         console.log(err);
         this.notificationType = false;
         this.showNotification = true;
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 2000)
       })
     },
     addNewProduct(productObj) {
@@ -218,13 +222,22 @@ export default {
         this.refreshProducts();
         this.notificationType = true;
         this.showNotification = true;
+
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 2000)
       })
       .catch((err) => {
         console.log(err);
         this.notificationType = false;
         this.showNotification = true;
+
+        setTimeout(() => {
+          this.showNotification = false;
+        }, 2000)
       })
     }
+    
   },
   created() {
     fetch("http://localhost:3000/api/categories/")
@@ -383,82 +396,23 @@ button {
   justify-content: space-between;
 }
 
-/* .productItem:hover {
-  background: rgb(223, 222, 222);
-} */
-
-/* .productEditBar {
-  padding-top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  height: 0;
-  transition: opacity 0.3s 0.1s, height 0.3s, padding-top 0.1s;
-}
-/* 
-
-.editBarOpened .productEditBar {
-  padding-top: 15px;
-  opacity: 1;
-  height: 100%;
-  transition: opacity 0.3s 0.1s, height 0.3s 0.1s, padding-top 0.1s;
-}
-/* //,  */
-
-/* .answerArea .answerText {
-    /* padding-top: 10px; 
-    opacity: 1;
-    height: 30px;
-    transition: opacity 0.3s 0.1s, height 0.3s;
-}
-
-.answerText {
-    text-align: left;
-    opacity: 0;
-    height: 0;
-    transition: opacity 0.3s, height 0.3s 0.1s;
-} */
-
-/* .cartImport {
-  position: relative;
-  right: -100px;
-  opacity: 0;
-  transition: right 0.3s, opacity 0.3s;
-}
-
-.cartOpened .cartImport {
-  right: 0;
-  opacity: 1;
-} */
-/* 
-.editSection {
-  display: flex;
-  width: 80%;
-  justify-content: space-between;
-  padding: -5px 0;
-}
-
-.editSection label {
-  font-size: 13px;
-}
-
-.editSection input {
-  border: none;
-  border-bottom: 1px solid #365a69;
-  width: 120px;
-  padding: 4px;
-}
-
-.editSection input:focus {
-  outline: none;
-} */
-
 .btnRight {
   width: 80%;
   display: flex;
   justify-content: flex-end;
   padding-bottom: 5px;
+}
+
+@keyframes appear {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.appear-enter-active {
+    animation: appear 1.8s;
+}
+
+.appear-leave-active {
+    animation: appear 2s reverse;
 }
 </style>

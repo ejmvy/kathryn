@@ -69,6 +69,7 @@ p {
   font-size: 15px;
   transition: all 0.5s ease;
   margin-top: 40px;
+  cursor: pointer;
 }
 .btn:hover {
   background: #204858;

@@ -125,7 +125,7 @@ export default {
       console.log("OLD");
       console.log(this.productObject);
       var keys = Object.keys(this.productObject);
-      
+
 
       const newEdits = {
         _id: (keys.length) ? this.productObject._id : '',

@@ -13,9 +13,9 @@
                     <tr class='cartItem'  v-for='(product, idx) in cartItems' :key='idx'>
                             <td>
                             <div class='productDesc'>
-                                <img class='productIcon' src='../../assets/latestDesigns/misc1.jpeg' />
+                                <img class='productIcon' :src='product.imageUrl' />
                                 <p>{{ product.name }}</p>
-                                <div class='light'>Beige</div>
+                                <div class='light'>{{ product.colour }}</div>
                                 <div class='light'>{{ product._id }}</div>
                                 
                             </div>
@@ -122,6 +122,7 @@ export default {
             })
             .then((data) => {
                 this.cartItems = data;
+                console.log('cart: ', this.cartItems);
             })
     }
 }
@@ -210,6 +211,7 @@ button {
 
 .productIcon {
     width: 80px;
+    height: 80px;
 }
 
 table {
@@ -238,6 +240,7 @@ tr {
     justify-content: space-between;
     /* align-items: center; */
     text-align: center;
+    font-size: 15px;
     /* border: 1px solid blue; */
 }
 

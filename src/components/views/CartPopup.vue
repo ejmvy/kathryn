@@ -4,9 +4,9 @@
     <h5>Your Shopping Cart</h5>
 
     <div class="shopItems">
-      <div class="singleItem" v-for="item in cartData" :key="item">
+      <div class="singleItem" v-for="(item, idx) in cartData" :key="item">
         <!-- <img class="itemImg" :src="require(`../../assets/${item.img}`)" /> -->
-        <img class="itemImg" src="../../assets/latestDesigns/misc1.jpeg" />
+        <img class="itemImg" :src="item.imageUrl" />
         <div class="itemDesc">
           <label>{{ item.name }}</label>
           <p>{{ item.price }}</p>
@@ -15,7 +15,7 @@
         <img
           class="binLogo"
           src="../../assets/bin.png"
-          @click="deleteItemFromCart(item)"
+          @click="deleteItemFromCart(item, idx)"
         />
       </div>
     </div>
@@ -33,7 +33,7 @@ export default {
     };
   },
   methods: {
-    deleteItemFromCart(item) {
+    deleteItemFromCart(item, idx) {
       console.log("item to delete:", item._id);
       fetch(`http://localhost:3000/api/cart/${item._id}`, {
         method: "DELETE",
@@ -41,6 +41,7 @@ export default {
           "Content-Type": "application/json",
         },
       });
+      this.cartData.splice(idx, 1);
     },
   },
   created() {

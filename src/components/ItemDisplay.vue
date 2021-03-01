@@ -2,7 +2,11 @@
 <Header></Header>
     <section class="shopPage">
         <div class='shopNavInfo'>
-            <p>Collection  /  All  /  {{ item.name }} </p>
+            <div class='shopNav'>
+                <router-link class='routerLink' to='/shop'>Collection</router-link>
+                <div class='breakLine'>/</div>
+                <p>{{ item.name }}</p>
+            </div>
         </div>
 
         <div class='displayArea'>
@@ -13,7 +17,7 @@
                     </div>
                 </div>
                 <div class='lrgImage'>
-                    <img class='lrgImageDisplay' :src='require(`../assets/${displayItem.img}`)' />
+                    <img class='lrgImageDisplay' :src='item.imageUrl' />
                 </div>
             </div>
 
@@ -24,26 +28,21 @@
 
                 <div class='customerChoice'>
                     <label>Color</label>
-                    <select class='selectOption'>
-                        <option value='beige'>Beige</option>
-                        <option value='teal'>Teal</option>
-                        <option value='aqua'>Aqua</option>
-                        <option value='brown'>Brown</option>
-                        <option value='navy'>Navy</option>
+                    <select v-model='colourPicked' class='selectOption'>
+                        <!-- :value='col' -->
+                        <option v-for='col in displayItem.colourArr' :key='col' :value='col'>{{ col }}</option>
                     </select>
+                        
                 </div>
                 <div class='customerChoice'>
                     <label>Quantity</label>
-                    <select class='selectOption'>
-                        <option value='one'>One</option>
-                        <option value='two'>Two</option>
-                        <option value='three'>Three</option>
-                        <option value='four'>Four</option>
-                        <option value='five'>Five</option>
+                    <select v-model='item.quantity' class='selectOption'>
+
+                        <option v-for='num in quantityValues' :key='num' :value='num'>{{ num }}</option>
                     </select>
                 </div>
 
-                <button class='btn'>Add To Basket</button>
+                <button @click='addItemToCart(item)' class='btn'>Add To Basket</button>
             </div>
         </div>
 
@@ -65,12 +64,25 @@ export default {
     data() {
         return {
             item: {},
+            colourVal: null,
+            quantityValues: ['One', 'Two', 'Three', 'Four', 'Five'],
+            colourPicked: '',
+            'quantityList': {
+                  'One': 1,
+                  'Two': 2,
+                  'Three': 3,
+                  'Four': 4,
+                  'Five': 5
+              },
             displayItem:  {
               'name': 'Bowl 1',
               'id': '1',
               'price': '14.99',
               'img': 'latestDesigns/bowl1.jpeg',
               'dimensions': '30 x 25 cm',
+              'quantity': ['one', 'two', 'three'],
+              
+              'colourArr': ['Teal', 'Aqua', 'Brown'],
               'colours': 'Teal, Aqua, Brown, Navy, Beige',
               'description': 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
               'washing': 'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
@@ -83,14 +95,48 @@ export default {
           },
         }
     },
+    methods: {
+        addItemToCart(item) {
+            console.log('ITEM ADDED: ', item);
+            fetch('http://localhost:3000/api/cart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: item.name,
+                    price: item.price,
+                    description: item.description,
+                    quantity: this.quantityList[item.quantity],
+                    colourPicked: this.colourPicked,
+                    imageUrl: item.imageUrl,
+                    dimensions: item.dimensions,
+                    numberInStock: item.numberInStock,
+                })
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log('ITEM SENT: ');
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+    },
+
     created() {
         fetch(`http://localhost:3000/api/products/${this.$route.params.id}`)
         .then((res) => {
             return res.json();
         })
         .then((data) => {
-            console.log('DISPLAY ITEM');
-            console.log(data);
+            // console.log('DISPLAY ITEM');
+            // console.log(data);
+            data.colour = data.colour.split(',');
+            data.colour = data.colour.map(col => col.trim());
             this.item = data;
         })
     },
@@ -115,6 +161,10 @@ p {
 
 }
 
+select {
+    cursor: pointer;
+}
+
 .shopPage {
   padding-top: 120px;
   /* margin-bottom: 80px; */
@@ -124,6 +174,29 @@ p {
     width: 90%;
     display: flex;
     justify-content: space-between;
+}
+
+.routerLink {
+    text-decoration: none !important;
+    color: #666666;
+    /* font-weight: bold; */
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.routerLink:hover {
+    border-bottom: 2px solid #ccc;
+    /* text-decoration: underline; */
+}
+
+.shopNav {
+    display: flex;
+    align-items: center;
+    color: #666666;
+}
+
+.breakLine {
+    padding: 0 20px;
 }
 
 .displayArea {

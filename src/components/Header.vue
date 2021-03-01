@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="headerArea">
-      <div class="logo">Ceramics By Kathryn</div>
+      <router-link class="logo" to='/'>Ceramics By Kathryn</router-link>
       <nav>
         <li>
           <router-link to="/">Home</router-link>
@@ -56,6 +56,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 header {
   width: 100%;
   position: absolute;
@@ -73,6 +74,7 @@ header .headerArea .logo {
   font-family: "Megrim", cursive;
   font-size: 35px;
   color: white;
+  text-decoration: none;
 }
 header .headerArea nav {
   display: flex;
@@ -110,10 +112,12 @@ header .headerArea nav li:hover a {
   right: -100px;
   opacity: 0;
   transition: right 0.3s, opacity 0.3s;
+  z-index: -1;
 }
 
 .cartOpened .cartImport {
   right: 0;
   opacity: 1;
+  z-index: 3;
 }
 </style>
