@@ -3,15 +3,19 @@
     <TitleDesign :title="titleText"></TitleDesign>
     <LeftCollectionComponent
       :displayCollection="dishCollection"
+      :collection='dishes'
     ></LeftCollectionComponent>
     <RightCollectionComponent
       :displayCollection="mugCollection"
+      :collection='mugs'
     ></RightCollectionComponent>
     <LeftCollectionComponent
       :displayCollection="bowlCollection"
+      :collection='bowls'
     ></LeftCollectionComponent>
     <RightCollectionComponent
       :displayCollection="miscCollection"
+      :collection='misc'
     ></RightCollectionComponent>
   </section>
 </template>
@@ -24,6 +28,10 @@ export default {
   data() {
     return {
       titleText: "The Collection",
+      dishes: 'dishes',
+      mugs: 'mugs',
+      bowls: 'bowls',
+      misc: 'misc',
       dishCollection: {
         title: "Dishes",
         text:

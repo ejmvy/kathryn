@@ -8,7 +8,7 @@
       </div>
       <div class="message">
         <h1>Kathryn Ceramics</h1>
-        <h3>"Thoughtful, Authentic, Personal"</h3>
+        <h4>"Thoughtful, Authentic, Personal"</h4>
         <p>
           There are many variations of passages of Lorem Ipsum available, but
           the majority have suffered alteration in some form, by injected

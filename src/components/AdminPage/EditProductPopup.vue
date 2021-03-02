@@ -80,13 +80,30 @@
     </div>
 
     <div class="ImageArea">
-      <img class="productImage" :src='editedProduct.imageUrl ? editedProduct.imageUrl : productObject.imageUrl' />
-        <button class='btn contactBtn imageBtn' @click.prevent='onPickFile'>Upload Image</button>
+      
+      <div class='largeImageArea'>
+        <img v-if='editedProduct.imageUrlArray[0] || productObject.imageUrlArray[0]' class="productImage" :src='editedProduct.imageUrlArray[0] ? editedProduct.imageUrlArray[0] : productObject.imageUrlArray[0]' />
+
+      </div>
+        
+      <div class='smallImageArea'>
+        <div class='smImageArea' @click.prevent='onPickFile2'>
+          <img v-if='editedProduct.imageUrlArray[1]  || productObject.imageUrlArray[1]' class='smImage' :src='editedProduct.imageUrlArray[1] ? editedProduct.imageUrlArray[1] : productObject.imageUrlArray[1]' />  
+        </div> 
+        <div class='smImageArea'>
+          <img v-if='editedProduct.imageUrlArray[2]  || productObject.imageUrlArray[2]' class='smImage' :src='editedProduct.imageUrlArray[2] ? editedProduct.imageUrlArray[2] : productObject.imageUrlArray[2]' />  
+        </div>
+        <div class='smImageArea'>
+          <img v-if='editedProduct.imageUrlArray[3]  || productObject.imageUrlArray[3]' class='smImage' :src='editedProduct.imageUrlArray[3] ? editedProduct.imageUrlArray[3] : productObject.imageUrlArray[3]' />  
+        </div>
+      </div>
+      <button class='btn contactBtn imageBtn' @click.prevent='onPickFile'>Upload Images</button>
         <input
           type='file'
           style='display: none'
           ref='fileInput'
           accept='image/*'
+          multiple
           @change.prevent='onFilePicked'
           />
     </div>
@@ -112,6 +129,9 @@ export default {
         stock: "",
         imageUrl: '',
         imageRaw: null,
+        smallImage1Url: '',
+        imageUrlArray: [],
+        imageRawFiles: [],
       },
     };
   },
@@ -137,8 +157,9 @@ export default {
         dimensions: this.editedProduct.dimensions ? this.editedProduct.dimensions : this.productObject.dimensions,
         colour: this.editedProduct.colour ? this.editedProduct.colour : this.productObject.colour,
         numberInStock: this.editedProduct.stock ? this.editedProduct.stock : this.productObject.numberInStock,
-        imageUrl: this.editedProduct.imageUrl ? this.editedProduct.imageUrl : this.productObject.imageUrl,
+        imageUrl: this.editedProduct.imageUrl[0] ? this.editedProduct.imageUrl[0] : this.productObject.imageUrl[0],
         imageRaw: this.editedProduct.imageRaw,
+        imageUrlArray: this.editedProduct.imageUrlArray ? this.editedProduct.imageUrlArray : this.productObject.imageUrlArray,
       }
 
       this.$emit('saveProduct', newEdits);
@@ -150,19 +171,50 @@ export default {
     onPickFile() {
       this.$refs.fileInput.click();
     },
+    // onPickFile2() {
+    //   console.log('file picking');
+    //   this.$refs.fileInput2.click();
+    // },
     onFilePicked(e) {
+      this.editedProduct.imageUrlArray = [];
       const files = e.target.files;
-      let filename = files[0].name;
-      if (filename.lastIndexOf('.') <= 0) {
-        return alert('Please add a valid file');
+      console.log('FILES');
+      console.log(files.length);
+     
+      for (var file in Object.entries(files)) {
+        let filename = files[file].name;
+        console.log(filename);
+        if (filename.lastIndexOf('.') <= 0) {
+          return alert('Please add a valid file');
+        }
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.editedProduct.imageUrlArray.push(fileReader.result)
+        })
+        fileReader.readAsDataURL(files[file])
+        this.editedProduct.imageRawFiles.push(files[file]);
       }
-      const fileReader = new FileReader()
-      fileReader.addEventListener('load', () => {
-        this.editedProduct.imageUrl = fileReader.result
-      })
-      fileReader.readAsDataURL(files[0])
-      this.editedProduct.imageRaw = files[0];
-    }
+      
+       
+      // }
+
+      console.log('URL FILES')
+      // console.log(imageNewArr);
+      console.log(this.editedProduct.imageUrlArray);
+    },
+    // onFile2Picked(e) {
+    //   const files = e.target.files;
+    //   let filename = files[0].name;
+    //   if (filename.lastIndexOf('.') <= 0) {
+    //     return alert('Please add a valid file');
+    //   }
+    //   const fileReader = new FileReader()
+    //   fileReader.addEventListener('load', () => {
+    //     this.editedProduct.smallImage1Url = fileReader.result
+    //   })
+    //   fileReader.readAsDataURL(files[0])
+    //   // this.editedProduct.imageRaw = files[0];
+    // }
   },
   created() {
       // console.log('EDIT OBJECT:')
@@ -219,11 +271,25 @@ form {
   padding: 10px;
 }
 
+.largeImageArea {
+  height: 50%;
+  border: 2px solid #ccc;
+  border-style: dashed;
+  width: 100%;
+  border-radius: 5px;
+}
+
 .productImage {
   position: relative;
-  height: 50%;
+  height: 100%;
   width: 100%;
   /* z-index: -1; */
+}
+
+.smImage {
+  width: 100%;
+  height: 100%;
+
 }
 
 .textArea {
@@ -289,5 +355,24 @@ label {
 .imageBtn {
   position: absolute;
   bottom: 20px;
+}
+
+.smallImageArea {
+  display: flex;
+  /* border: 2px solid yellow; */
+  margin-top: 20px;
+}
+
+.smImageArea {
+  flex: 1;
+  height: 60px;
+  width: inherit;
+  min-width: 60px;
+  /* width:100%; */
+  border: 2px solid #ccc;
+  border-style: dashed;
+  border-radius: 5px;
+  margin: 0 10px;
+  cursor: pointer;
 }
 </style>

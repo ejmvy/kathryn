@@ -12,7 +12,7 @@
                 </div>
                 <div class='horiz'>
                     <label>Colors</label>
-                    <p>{{ itemInfo.colours }}</p>
+                    <p>{{ itemInfo.colour }}</p>
                 </div>
             </div>
             <div class='productSection'>

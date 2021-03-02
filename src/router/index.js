@@ -5,6 +5,7 @@ import ItemDisplay from '@/components/ItemDisplay.vue';
 import Contact from '@/components/views/Contact.vue';
 import Admin from '@/components/views/Admin.vue';
 import CartView from '@/components/views/CartView.vue';
+import ShowCollection from '@/components/views/ShowCollection.vue';
 
 
 const routes = [
@@ -37,6 +38,11 @@ const routes = [
         path: '/cart',
         name: 'Cart',
         component: CartView,
+    },
+    {
+        path: '/shop/:category',
+        name: 'ShowCollection',
+        component: ShowCollection,
     },
 ]
 

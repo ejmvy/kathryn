@@ -12,12 +12,12 @@
         <div class='displayArea'>
             <div class='imageArea'>
                 <div class='smallImages'>
-                    <div v-for='smImg in displayItem.smImages' :key='smImg'>
-                        <img class='smImageDisplay' :src='require(`../assets/${smImg}`)' />
+                    <div v-for='smImg in item.imageUrlArray' :key='smImg'>
+                        <img class='smImageDisplay' :src='smImg' @click='changeImage(smImg)' />
                     </div>
                 </div>
                 <div class='lrgImage'>
-                    <img class='lrgImageDisplay' :src='item.imageUrl' />
+                    <img class='lrgImageDisplay' :src='imageView' />
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                     <label>Color</label>
                     <select v-model='colourPicked' class='selectOption'>
                         <!-- :value='col' -->
-                        <option v-for='col in displayItem.colourArr' :key='col' :value='col'>{{ col }}</option>
+                        <option v-for='col in item.colourArr' :key='col' :value='col'>{{ col }}</option>
                     </select>
                         
                 </div>
@@ -74,28 +74,32 @@ export default {
                   'Four': 4,
                   'Five': 5
               },
-            displayItem:  {
-              'name': 'Bowl 1',
-              'id': '1',
-              'price': '14.99',
-              'img': 'latestDesigns/bowl1.jpeg',
-              'dimensions': '30 x 25 cm',
-              'quantity': ['one', 'two', 'three'],
+              imageView: '',
+        //     displayItem:  {
+        //       'name': 'Bowl 1',
+        //       'id': '1',
+        //       'price': '14.99',
+        //       'img': 'latestDesigns/bowl1.jpeg',
+        //       'dimensions': '30 x 25 cm',
+        //       'quantity': ['one', 'two', 'three'],
               
-              'colourArr': ['Teal', 'Aqua', 'Brown'],
-              'colours': 'Teal, Aqua, Brown, Navy, Beige',
-              'description': 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
-              'washing': 'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
-              'smImages': [
-                  'latestDesigns/bowl1.jpeg',
-                  'latestDesigns/bowl1.jpeg',
-                  'latestDesigns/bowl1.jpeg',
-                  'latestDesigns/bowl1.jpeg',
-              ]
-          },
+        //       'colourArr': ['Teal', 'Aqua', 'Brown'],
+        //       'colours': 'Teal, Aqua, Brown, Navy, Beige',
+        //       'description': 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
+        //       'washing': 'The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters.',
+        //       'smImages': [
+        //           'latestDesigns/bowl1.jpeg',
+        //           'latestDesigns/bowl1.jpeg',
+        //           'latestDesigns/bowl1.jpeg',
+        //           'latestDesigns/bowl1.jpeg',
+        //       ]
+        //   },
         }
     },
     methods: {
+        changeImage(imgUrl) {
+            this.imageView = imgUrl;
+        },
         addItemToCart(item) {
             console.log('ITEM ADDED: ', item);
             fetch('http://localhost:3000/api/cart/', {
@@ -135,8 +139,10 @@ export default {
         .then((data) => {
             // console.log('DISPLAY ITEM');
             // console.log(data);
-            data.colour = data.colour.split(',');
-            data.colour = data.colour.map(col => col.trim());
+            data.colourArr = data.colour.split(',');
+            data.colourArr = data.colourArr.map(col => col.trim());
+            console.log(data);
+            this.imageView = data.imageUrlArray[0];
             this.item = data;
         })
     },
@@ -220,6 +226,7 @@ select {
 .smImageDisplay {
     width: 100px;
     height: 100px;
+    cursor: pointer;
 }
 
 .lrgImage {

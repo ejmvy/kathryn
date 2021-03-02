@@ -11,7 +11,9 @@
         <p>
           {{ displayCollection.text }}
         </p>
-        <button class="btn">SHOP NOW</button>
+        <router-link :to="{ name: 'ShowCollection', params: { category: collection } }">
+          <button class="btn">SHOP NOW</button>
+        </router-link>
       </div>
     </div>
     <div class="picture">
@@ -25,7 +27,7 @@
 
 <script>
 export default {
-  props: ["displayCollection"],
+  props: ["displayCollection", "collection"],
 };
 </script>
 
