@@ -21,6 +21,8 @@ export default {
         "instaImages/jug.jpeg",
         "instaImages/class2.jpeg",
         "instaImages/jug2.jpeg",
+        "latestDesigns/bowl1.jpeg",
+        "latestDesigns/mug1.jpeg",
       ],
     };
   },
@@ -35,11 +37,14 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 90%;
+  /* border: 1px solid red; */
+  overflow: auto;
 }
 
 .pic {
-  width: 150px;
-  height: 120px;
+  /* flex: 1; */
+  width: 200px;
+  height: 150px; 
   padding: 0 10px;
 }
 </style>

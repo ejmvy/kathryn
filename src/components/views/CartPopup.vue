@@ -14,7 +14,7 @@
         <div class="qty">{{ item.quantity }}</div>
         <img
           class="binLogo"
-          src="../../assets/bin.png"
+          src="../../assets/icons/bin.png"
           @click="deleteItemFromCart(item, idx)"
         />
       </div>

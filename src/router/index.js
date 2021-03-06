@@ -6,6 +6,7 @@ import Contact from '@/components/views/Contact.vue';
 import Admin from '@/components/views/Admin.vue';
 import CartView from '@/components/views/CartView.vue';
 import ShowCollection from '@/components/views/ShowCollection.vue';
+import Login from '@/components/views/Login.vue';
 
 
 const routes = [
@@ -43,6 +44,11 @@ const routes = [
         path: '/shop/:category',
         name: 'ShowCollection',
         component: ShowCollection,
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        component: Login,
     },
 ]
 

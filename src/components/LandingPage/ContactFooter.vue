@@ -1,5 +1,5 @@
 <template>
-  <section class="padBottom">
+  <div class="padBottom">
     <div class="icons">
       <div class="circle" v-for="logo in logos" :key="logo">
         <img class="circleImg" :src="require(`../../assets/${logo}`)" />
@@ -15,7 +15,7 @@
         <p>Designed by EJ</p>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -30,7 +30,11 @@ export default {
 
 <style scoped>
 .padBottom {
+  width: 100%;
   padding: 80px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   /* padding-bottom: 0; */
 }
 p {
@@ -77,5 +81,16 @@ p {
   justify-content: space-between;
   /* width: 90%; */
   padding: 0 20px;
+  
+}
+
+.footerArea p {
+  font-size: 12px;
+}
+
+@media screen and (max-width: 500px) {
+  p {
+    font-size: 12px;
+  }
 }
 </style>

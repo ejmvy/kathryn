@@ -39,14 +39,14 @@
                     </tr>
                 </div>
                 <div v-if='cartItems.length > 3' class='downIconArea'>
-                    <img class='downIcon' src='../../assets/down-green.png' />
+                    <img class='downIcon' src='../../assets/icons/down-green.png' />
                 </div>
             </table>
          </div>
          <div class='buySection'>
              <div class='topIcon'>
                  <router-link to='/'>
-                    <img class='closeIcon' src='../../assets/close.png' />
+                    <img class='closeIcon' src='../../assets/icons/close.png' />
                  </router-link>
              </div>
              <div class='buyPanel'>

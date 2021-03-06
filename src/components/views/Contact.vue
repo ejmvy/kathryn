@@ -22,29 +22,32 @@
           <button class="btn contactBtn">Submit</button>
         </div>
       </div>
-      <div class="contactDetails">
-        <div class="contactInfo">
-          <label>Address</label>
-          <p>37 Victoria Road, Rathgar</p>
-          <p>Dublin 6, D06 EA30</p>
-        </div>
-        <div class="contactInfo">
-          <label>Email</label>
-          <p>kathrynokelly@gmail.com</p>
-        </div>
-        <div class="contactInfo">
-          <label>Phone</label>
-          <p>+353 852577 656</p>
-        </div>
-        <div class="contactInfo">
-          <label>Social</label>
-          <div class="icons">
-            <div class="circle" v-for="logo in logos" :key="logo">
-              <img class="circleImg" :src="require(`../../assets/${logo}`)" />
+      <div class='contactArea'>
+        <div class="contactDetails">
+          <div class="contactInfo">
+            <label>Address</label>
+            <p>37 Victoria Road, Rathgar</p>
+            <p>Dublin 6, D06 EA30</p>
+          </div>
+          <div class="contactInfo">
+            <label>Email</label>
+            <p>kathrynokelly@gmail.com</p>
+          </div>
+          <div class="contactInfo">
+            <label>Phone</label>
+            <p>+353 852577 656</p>
+          </div>
+          <div class="contactInfo">
+            <label>Social</label>
+            <div class="icons">
+              <div class="circle" v-for="logo in logos" :key="logo">
+                <img class="circleImg" :src="require(`../../assets/${logo}`)" />
+              </div>
             </div>
           </div>
-        </div>
+        </div>    
       </div>
+      
     </div>
   </section>
   <Footer></Footer>
@@ -101,11 +104,21 @@ label {
   padding: 20px 40px;
 }
 
+@media screen and (max-width: 750px) {
+  .mainContactArea {
+    flex-direction: column;
+  }
+
+  .contactDetails {
+    display: none;
+  }
+}
+
 .topLine {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin-bottom: 50px;
+  width: 100%;
 }
 
 .contactForm label {
@@ -118,12 +131,19 @@ label {
   text-align: left;
 }
 
-.contactDetails {
+.contactArea {
+  width: 40%;
   flex: 1;
+}
+
+.contactDetails {
+  width: 90%;
+  
   text-align: left;
-  margin-left: 50px;
   border-left: 1px solid #ccc;
-  padding-left: 80px;
+  position: relative;
+  left: 30px;
+  padding-left: 30px;
 }
 
 .contactDetails label {
@@ -135,7 +155,9 @@ label {
 }
 
 input {
+  /* flex: 1; */
   height: 30px;
+  width: 100%;
   min-width: 200px;
   border: 1px solid #f2f2f2;
   background: #f2f2f2;
@@ -159,7 +181,7 @@ textarea:focus {
 .icons {
   display: flex;
   width: 50%;
-  justify-content: center;
+  justify-content: flex-start;
   padding-top: 20px;
 }
 
@@ -167,11 +189,11 @@ textarea:focus {
   background: rgba(32, 72, 88, 0.7);
   color: white;
   border-radius: 50%;
-  /* padding: 8px; */
+  padding: 8px;
   margin: 0 10px;
   cursor: pointer;
-  width: 100px;
-  height: 45px;
+  width: 50px;
+  height: 30px;
   transition: all 0.2s ease-in-out;
 }
 .circle:hover {
@@ -180,10 +202,10 @@ textarea:focus {
 
 .circleImg {
   position: relative;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   font-size: 50px;
-  top: 15%;
-  left: 12.5%;
+  top: -15%;
+  left: 0%;
 }
 </style>

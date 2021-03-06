@@ -9,7 +9,7 @@
                 <img 
 
                 class='arrow' 
-                src='../../assets/down.png' 
+                src='../../assets/icons/down.png' 
                 @click='question.answerShow = !question.answerShow' 
                 :class="{'rotateArrow': question.answerShow}"
                 />

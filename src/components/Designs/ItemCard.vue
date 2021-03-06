@@ -1,7 +1,9 @@
 <template>
   <router-link :to="{ name: 'ItemDisplay', params: { id: displayItem._id } }">
     <!-- <img class='itemImage' :src='require(`../../assets/${displayItem.img}`)' /> -->
+   <div class='imageArea'>
     <img class="itemImage" :src="displayItem.imageUrl" />
+   </div>
   </router-link>
   <h3>{{ displayItem.name }}</h3>
   <p>{{ displayItem.price }}</p>
@@ -46,5 +48,25 @@ export default {
 p {
   margin-top: -10px;
   color: #696969;
+}
+
+@media screen and (max-width: 700px) {
+  .imageArea {
+    min-width: 300px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+
+  }
+  .itemImage {
+    width: 100%;
+    height: 100%;
+   object-fit: cover;
+    margin: 0;
+  }
+
+  .smBtn {
+    margin-bottom: 30px;
+  }
 }
 </style>

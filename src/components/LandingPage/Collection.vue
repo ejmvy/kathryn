@@ -1,23 +1,25 @@
 <template>
-  <section id="collectionArea">
-    <TitleDesign :title="titleText"></TitleDesign>
-    <LeftCollectionComponent
-      :displayCollection="dishCollection"
-      :collection='dishes'
-    ></LeftCollectionComponent>
-    <RightCollectionComponent
-      :displayCollection="mugCollection"
-      :collection='mugs'
-    ></RightCollectionComponent>
-    <LeftCollectionComponent
-      :displayCollection="bowlCollection"
-      :collection='bowls'
-    ></LeftCollectionComponent>
-    <RightCollectionComponent
-      :displayCollection="miscCollection"
-      :collection='misc'
-    ></RightCollectionComponent>
-  </section>
+  <div id="collectionArea">
+    <div class='collectionSection'>
+      <TitleDesign :title="titleText"></TitleDesign>
+      <LeftCollectionComponent
+        :displayCollection="dishCollection"
+        :collection='dishes'
+      ></LeftCollectionComponent>
+      <RightCollectionComponent
+        :displayCollection="mugCollection"
+        :collection='mugs'
+      ></RightCollectionComponent>
+      <LeftCollectionComponent
+        :displayCollection="bowlCollection"
+        :collection='bowls'
+      ></LeftCollectionComponent>
+      <RightCollectionComponent
+        :displayCollection="miscCollection"
+        :collection='misc'
+      ></RightCollectionComponent>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -70,5 +72,30 @@ export default {
 #collectionArea {
   background: #f5f5f5;
   padding-bottom: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.collectionSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+  /* border: 2px solid red; */
+}
+
+@media only screen and (min-width:1200px) {
+  /* .indexMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  } */
+  .collectionSection {
+   width: 80%;
+
+  }
 }
 </style>

@@ -16,6 +16,11 @@
           <a href="#">Gallery</a>
         </li>
         <li>
+          <router-link to="login">
+            <img class='userLogo' src='../assets/icons/userIcon.png' />
+          </router-link>
+        </li>
+        <li>
           <a href="#">
             <img
               class="cartLogo"
@@ -107,6 +112,11 @@ header .headerArea nav li:hover a {
   height: 30px;
 }
 
+.userLogo {
+  width: 20px;
+  height: 20px;
+}
+
 .cartImport {
   position: relative;
   right: -100px;
@@ -119,5 +129,22 @@ header .headerArea nav li:hover a {
   right: 0;
   opacity: 1;
   z-index: 3;
+}
+
+@media screen and (max-width: 1000px) {
+  header .headerArea {
+    padding: 5px 20px; 
+  }
+  header .headerArea .logo {
+    font-size: 25px;
+  }
+  header .headerArea nav li {
+    font-size: 14px;
+    margin: 0 15px;
+  }
+  .cartLogo {
+    width: 25px;
+    height: 25px;
+  }
 }
 </style>

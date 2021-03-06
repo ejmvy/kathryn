@@ -105,11 +105,17 @@ section {
   /* border: 2px solid red; */
 }
 
-/* @media only screen and (min-width:1000px) {
-  section {
-    /* padding: 0 100px; 
+@media only screen and (min-width:1200px) {
+  .indexMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-} */
+  section {
+   width: 80%;
+
+  }
+}
 
 .designTop,
 .designBottom {
@@ -141,5 +147,37 @@ section {
 }
 .designBottom .line1 {
   margin-top: 10px;
+}
+
+@keyframes appear {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.appear-enter-active {
+    animation: appear 1.8s;
+}
+
+.appear-leave-active {
+    animation: appear 2s reverse;
+}
+
+@keyframes appearUP {
+  0% { 
+    opacity: 0; 
+    top: 300px;  
+  }
+  100% { 
+    opacity: 1; 
+    top: 0;
+  }
+}
+
+.appearUP-enter-active {
+    animation: appear 1s;
+}
+
+.appearUP-leave-active {
+    animation: appear 2s reverse;
 }
 </style>

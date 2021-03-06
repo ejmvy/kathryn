@@ -21,7 +21,7 @@
                 @click="viewCategory(category)"
               >
                 <div class="cat">{{ category.name }}</div>
-                <img class="icon" src="../../assets/right.png" />
+                <img class="icon" src="../../assets/icons/right.png" />
               </div>
 
               <button @click="addNewCategory()" class="btn categoryPadding">
@@ -50,12 +50,12 @@
                     <img
                       @click="deleteProduct(product)"
                       class="icon"
-                      src="../../assets/bin-green.png"
+                      src="../../assets/icons/bin-green.png"
                     />
                     <img
                       @click="editProduct(product)"
                       class="icon"
-                      src="../../assets/pencil.png"
+                      src="../../assets/icons/pencil.png"
                     />
                   </div>
                 </div>
@@ -402,7 +402,7 @@ button {
   justify-content: flex-end;
   padding-bottom: 5px;
 }
-
+/* 
 @keyframes appear {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -414,5 +414,5 @@ button {
 
 .appear-leave-active {
     animation: appear 2s reverse;
-}
+} */
 </style>
