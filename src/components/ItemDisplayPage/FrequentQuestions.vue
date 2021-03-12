@@ -1,24 +1,26 @@
 <template>
-    <section class='questionsArea'>
-        <TitleDesign :title="titleText"></TitleDesign>
+    <div id='questionsArea'>
+        <div class='questionPadding'>
+            <TitleDesign :title="titleText"></TitleDesign>
+            <div class='questionArea' v-for='question in questions' :key='question'>
+                <div class='questionBanner' >
+                    <div class='questionTitle'>{{ question.title }}</div>
+                    
+                    <img 
 
-        <div class='questionArea' v-for='question in questions' :key='question'>
-            <div class='questionBanner' >
-                <div class='questionTitle'>{{ question.title }}</div>
-                
-                <img 
-
-                class='arrow' 
-                src='../../assets/icons/down.png' 
-                @click='question.answerShow = !question.answerShow' 
-                :class="{'rotateArrow': question.answerShow}"
-                />
-            </div>
-            <div :class="{'answerArea': question.answerShow}" >
-                <p class='answerText'>{{ question.answer }}</p>
+                    class='arrow' 
+                    src='../../assets/icons/down.png' 
+                    @click='question.answerShow = !question.answerShow' 
+                    :class="{'rotateArrow': question.answerShow}"
+                    />
+                </div>
+                <div :class="{'answerArea': question.answerShow}" >
+                    <p class='answerText'>{{ question.answer }}</p>
+                </div>
             </div>
         </div>
-    </section>
+        
+    </div>
 </template>
 
 <script>
@@ -55,9 +57,22 @@ export default {
 </script>
 
 <style scoped>
-.questionsArea {
-    width: 100%;
+#questionsArea {
+    /* width: 100%; */
 background: #eaeaea;
+/* background: #f5f5f5; */
+  padding-bottom: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.questionPadding {
+    display: flex;
+    flex-direction: column;
+    /* width: 80%; */
+    align-items: center;
 }
 
 .questionArea {
@@ -93,6 +108,7 @@ background: #eaeaea;
     width: 20px;
     height: 20px;
     transition: 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 p {
@@ -109,6 +125,12 @@ p {
   }
   100% {
     transform: rotate(90deg);
+  }
+}
+
+@media only screen and (min-width:1200px) {
+  .questionPadding {
+      width: 80%;
   }
 }
 

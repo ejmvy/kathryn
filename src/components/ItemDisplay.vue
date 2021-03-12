@@ -48,9 +48,10 @@
 
         <ProductDescription :itemInfo='item'></ProductDescription>
 
-        <FrequentQuestions></FrequentQuestions>
+        
 
     </section>
+    <FrequentQuestions></FrequentQuestions>
     <Footer></Footer>
 </template>
 

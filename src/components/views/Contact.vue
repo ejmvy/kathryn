@@ -186,7 +186,7 @@ textarea:focus {
 }
 
 .circle {
-  background: rgba(32, 72, 88, 0.7);
+  background: rgba(42, 122, 153,0.9);
   color: white;
   border-radius: 50%;
   padding: 8px;

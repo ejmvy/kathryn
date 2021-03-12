@@ -82,6 +82,7 @@
     <div class="ImageArea">
       
       <div class='largeImageArea'>
+        <!--  -->
         <img v-if='editedProduct.imageUrlArray[0] || productObject.imageUrlArray[0]' class="productImage" :src='editedProduct.imageUrlArray[0] ? editedProduct.imageUrlArray[0] : productObject.imageUrlArray[0]' />
 
       </div>
@@ -130,7 +131,7 @@ export default {
         imageUrl: '',
         imageRaw: null,
         smallImage1Url: '',
-        imageUrlArray: [],
+        imageUrlArray: ['', '', '', ''],
         imageRawFiles: [],
       },
     };
@@ -217,8 +218,8 @@ export default {
     // }
   },
   created() {
-      // console.log('EDIT OBJECT:')
-      // console.log(this.productObject);
+      console.log('EDIT OBJECT:')
+      console.log(this.productObject);
   }
 };
 </script>
@@ -226,11 +227,11 @@ export default {
 <style scoped>
 
 .mainPopupArea {
-  width: 70%;
+  width: 80%;
   background: white;
-  position: absolute;
+  position: fixed;
   top: 15%;
-  left: 15%;
+  left: 10%;
   z-index: 2;
   border-radius: 8px;
   display: flex;

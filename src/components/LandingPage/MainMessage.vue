@@ -41,7 +41,7 @@ export default {
 
 <style scoped>
 #welcomeMessage {
-  background: #f5f5f5;
+  /* background: #f5f5f5; */
   /* border-top: 1px solid #204858; */
   /* border: 2px solid red; */
   width: 100%;
@@ -55,12 +55,12 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 0;
+  padding: 60px 0 30px 0;
 }
 #welcomeMessage .welcome .message {
   margin-top: 30px;
   /* padding-bottom: 20px; */
-  font-size: 35px;
+  font-size: 25px;
 }
 .designTop,
 .designBottom {

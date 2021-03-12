@@ -1,4 +1,7 @@
 <template>
+    <transition name='appear' :duration="{ enter: 800, leave: 800 }">
+        <Notification v-if='showNotification' :type='notificationType' :message='notificationMessage'></Notification>
+    </transition>
     <div class='loginSection'>
         <div v-if='!welcomePopup' class='loginArea'>
             <div class='halfPage login'>
@@ -7,9 +10,10 @@
                     <input class='loginInput' placeholder="Email" />
                     <input class='loginInput' placeholder="Password" />
                     <div class="btnArea">
-                        <button class='btn loginBtn'>GO</button>
+                        
                     </div>
                 </div>
+                <button @click='welcomePopup = true' class='btn loginBtn'>GO</button>
             </div>
             <div class='halfPage register'>
                 <div class='registerArea'>
@@ -17,21 +21,23 @@
                     <input class='loginInput' placeholder="Name" v-model="newUser.name" />
                     <input class='loginInput' placeholder="Email" v-model="newUser.email" />
                     <input class='loginInput' placeholder="Password" v-model="newUser.password" />
-                    <button class='btn loginBtn registerBtn' @click='registerUser()'>Sign Up Now</button>
                 </div>
+                <button class='btn loginBtn registerBtn' @click='registerUser()'>Sign Up</button>
             </div>
         </div>
         <!-- // :class="{'welcomeAppear': welcomePopup}"-->
-        <transition name='appearUP' :duration="{ enter: 300, }"> 
+        <transition name='appearUP' > 
             <div class='welcomePopupArea' v-if='welcomePopup'  >
                 <div class='welcomePopup'>
                     <div class='topPopup'>
                         <img class='successLogo' src='../../assets/icons/cheer.png' />
-                        <h3>You're all signed up {{ newUser.name }} !</h3>
-                        <p>We hope you enjoy your shopping experience</p>
+                        <h3>Success!</h3>
+                        <h4>Welcome {{ newUser.name }}</h4>
                     </div>
+
+                    <p>Congratulations your account has been successfully set up.</p>
                     <div class='viewShopBtn'>
-                    <button class='btn loginBtn' @click='enterShop'>View Shop</button>
+                    <button class='btn loginBtn shopBtn' @click='enterShop'>View Shop</button>
 
                     </div>
                 </div>
@@ -41,6 +47,7 @@
 </template>
 
 <script>
+import Notification from '../Designs/Notification.vue';
 export default {
     data() {
         return {
@@ -52,6 +59,9 @@ export default {
                 password: "",
             },
             welcomePopup: false,
+            showNotification: false,
+            notificationType: '',
+            notificationMessage: '',
         }
     },
     methods: {
@@ -61,28 +71,48 @@ export default {
 
             this.welcomePopup = true;
 
-            // fetch('http://localhost:3000/api/users', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     },
-            //     body: JSON.stringify(this.newUser)
-            // })
-            // .then((res) => {
-            //     return res.json();
-            // })
-            // .then((data) => {
-            //     console.log(data);
-            //     this.welcomePopup = true;
-            //     // this.$emit('showNotification', 'success');
-            // })
-            // .catch((err => {
-            //     console.log(`error: ${err}`);
-            // }))
+            if (this.newUser.name && this.newUser.email && this.newUser.password) {
+                console.log('have all values');
+                fetch('http://localhost:3000/api/users', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.newUser)
+                })
+                .then((res) => {
+                    console.log('res:');
+                    return res.json();
+                })
+                .then((data) => {
+                    console.log('data: ');
+                    console.log(data);
+                    this.welcomePopup = true;
+                    // this.$emit('showNotification', 'success');
+                })
+                .catch((err => {
+                    console.log(`error: ${err}`);
+                }))
+            }
+            else {
+                console.log('DATA MISSING');
+                this.notificationType = false;
+                this.notificationMessage = 'Some Information is missing'
+                this.showNotification = true;
+                this.welcomePopup = false;
+
+                setTimeout(() => {
+                    this.showNotification = false;
+                }, 2000)
+            }
+            
         },
         enterShop() {
             this.$router.push('/shop');
         }
+    },
+    components: {
+        Notification
     }
 }
 </script>
@@ -96,12 +126,17 @@ export default {
         width: 100%;
         height: 100%;
         background-color: rgba(32, 72, 88, 0.7);
-        background-image: linear-gradient(
+        /* background-image: linear-gradient(
             to top right,
-            /* rgba(42, 122, 153, 0.7)  */
+            /* rgba(42, 122, 153, 0.7)  
             rgb(163, 163, 162),
             rgba(42, 122, 153, 0.7) 50%
-            );
+            ); */
+        /* background-image: linear-gradient(
+            to top right,
+            rgb(163, 163, 162),
+            rgba(32, 72, 88, 0.7)
+            ); */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -137,17 +172,20 @@ export default {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        height: 100%;
+        justify-content: space-between;
+        height: 80%;
         /* border: 2px solid red; */
     }
 
     .register {
-        background: rgba(42, 122, 153, 0.7);
+        /* background: rgba(42, 122, 153, 0.7); */
+        background: #365a69;
         color: white;
     }
 
     .login h5 {
         color: rgba(42, 122, 153, 0.7);
+        color: #365a69;
     }
 
     input {
@@ -184,33 +222,36 @@ export default {
     button {
         position: relative;
         bottom: 0;
+        outline: none;
     }
 
     input::placeholder {
         color: rgb(185, 182, 182);
     }
 
-    /* .btnArea {
-        position: relative;
-        bottom: -60px;
-    } */
-
+/* #204858; */
     .loginBtn {
         position: relative;
-        bottom: 0;
-        background: rgb(42, 122, 153);
-        border: 2px solid rgba(42, 122, 153, 0.7);
+        bottom: -40px;
+        background: #365a69;
+        border: 2px solid #365a69;
         color: white;
-        width: 70%;
+        width: 100%;
         font-family: "Open Sans Condensed", sans-serif;
         font-size: 14px;
         letter-spacing: 3px;
         padding: 9px 40px;
     }
 
+    .shopBtn {
+        padding: 10px 40px;
+        bottom: 0;
+        border-radius: 40px;
+    }
+
     .loginBtn:hover {
         background: white;
-        color: rgba(42, 122, 153, 0.7);
+        color: #365a69;
     }
 
     .loginBtn:focus {
@@ -220,21 +261,15 @@ export default {
 
     .registerBtn {
         width: 100%;
-        background: white;
-        color: rgba(42, 122, 153, 0.7);
-    }
-
-    .registerBtn:hover {
-        background: rgba(42, 122, 153, 0.7);
+        background: none;
+        border: 2px solid white;
         color: white;
     }
 
-    .welcomePopupArea {
-        width: 60%;
-        /* opacity: 0;
-        height: 0;
-        transition: opacity 0.3s, height 0.3s 0.1s;  */
-
+    .registerBtn:hover {
+        background: white;
+        color: #365a69;
+        border: 2px solid white;
     }
 
      .welcomePopup {
@@ -242,13 +277,8 @@ export default {
         width: 100%;
         background: white;
         color: white;
-        /* box-shadow: 0 5px 5px 2px rgb(150, 148, 148); */
         min-height: 300px;
-        border-radius: 35px;
-        /* top: 100px; */
-        /* opacity: 0; */
-        /* height: 0; */
-        /* transition: opacity 0.3s, top 0.3s 0.1s;  */
+        border-radius: 10px;
         transition: all 2s ease-in-out; 
      }
 
@@ -258,19 +288,20 @@ export default {
         align-items: center;  
         justify-content: space-around;
         height: 100%;
-        background: rgba(42, 122, 153, 0.7);
-        padding: 10%; 
-        border-radius: 35px 35px 0 0;
+        background: #365a69;
+        padding: 20px 0 10px 0; 
+        border-radius: 10px 10px 0 0;
     }
 
-    /* .welcomeAppear .welcomePopup {  */
-        /* padding-top: 10px;  */
-        /* width: 100%; */
-        /* opacity: 1; */
-        /* top: 0; */
-        /* height: 100%; */
-        /* transition: opacity 0.3s 0.1s, top 0.3s; */
-    /* } */
+    .topPopup h3 {
+        text-transform: uppercase;
+        letter-spacing: 3px;
+    }
+
+    .welcomePopup p {
+        color: #666666;
+        padding: 10px 50px;
+    }
 
     .successLogo {
         width: 50px;

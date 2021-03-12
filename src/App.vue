@@ -58,6 +58,10 @@ p {
   line-height: 1.8;
 
 }
+
+button:hover {
+  transform: scale(1.05);
+}
 .btn {
   padding: 8px 40px;
   text-transform: uppercase;
@@ -65,7 +69,7 @@ p {
   background: none;
   color: #604800;
   border: 3px solid #204858;
-  border-radius: 15px;
+  border-radius: 40px;
   font-size: 15px;
   transition: all 0.5s ease;
   margin-top: 40px;
@@ -110,6 +114,7 @@ section {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width:100%;
   }
   section {
    width: 80%;
@@ -165,19 +170,19 @@ section {
 @keyframes appearUP {
   0% { 
     opacity: 0; 
-    top: 300px;  
+    margin-top: 300px;  
   }
   100% { 
     opacity: 1; 
-    top: 0;
+    margin-top: 0;
   }
 }
 
 .appearUP-enter-active {
-    animation: appear 1s;
+    animation: appearUP 0.8s;
 }
 
 .appearUP-leave-active {
-    animation: appear 2s reverse;
+    animation: appearUP 2s reverse;
 }
 </style>

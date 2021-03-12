@@ -1,8 +1,8 @@
 <template>
-    <div class='banner' :class="{'success': !type}">
+    <div class='banner' :class="{'fail': !type}">
         <div class='messageArea'>
-            <h5>{{ type ? 'Success' : 'Fail'}}</h5>
-            <p>{{ type ? 'Your changes have been saved' : "Could't save changes" }}</p>
+            <h5>{{ type ? 'Success' : 'Somethings Wrong!'}}</h5>
+            <p>{{ message }}</p>
         </div>
     </div>
 
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    props: [ 'type' ]
+    props: [ 'type', 'message' ]
 }
 </script>
 
@@ -27,6 +27,7 @@ export default {
         padding: 10px 20px;
         text-align: left;
         border-left:6px solid rgb(2, 161, 108);
+        z-index: 5;
     }
 
     .fail {

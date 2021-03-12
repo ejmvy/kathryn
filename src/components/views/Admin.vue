@@ -1,243 +1,94 @@
 <template >
-  <div class="adminBg">
+  <div class="adminBg" :class='{"greenBg": !userLoggedIn}'>
+    <AdminLogin v-if='!userLoggedIn' @loggedIn='userLoggedIn = true'></AdminLogin>
     <div class='noteAppear'>
       <transition name='appear' :duration="{ enter: 800, leave: 800 }">
-        <Notification v-if='showNotification' :type='notificationType'></Notification>
+        <Notification v-if='showNotification' :type='notificationType' :message='notificationMessage'></Notification>
       </transition>
-
     </div>
-    <div class="adminArea">
-      <h3>Admin Panel - Welcome Kathryn!</h3>
-      <div class="adminPanel">
-        <div class="panelSection categoryPanel">
-          <div class="categorySection">
-            <h4>Categories</h4>
 
-            <div class="scroll">
-              <div
-                class="categoryItem"
-                v-for="category in categoryList"
-                :key="category"
-                @click="viewCategory(category)"
-              >
-                <div class="cat">{{ category.name }}</div>
-                <img class="icon" src="../../assets/icons/right.png" />
-              </div>
+    <AdminHeader v-if='userLoggedIn'></AdminHeader>
 
-              <button @click="addNewCategory()" class="btn categoryPadding">
-                Add Category
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="panelSection productPanel">
-          <div class="productSection">
-            <h4 v-if='categorySelected'>Products</h4>
-
-            <div class="scroll">
-              <div
-                class="productItem"
-                v-for="product in productList"
-                :key="product"
-              >
-                <div class="productShow">
-                  <div class="productDesc">
-                    <div class="itemName">{{ product.name }}</div>
-                    <div class="itemFont">{{ product.price }}</div>
-                    <div class="itemFont">{{ product.numberInStock }}</div>
-                  </div>
-                  <div class="productIcons">
-                    <img
-                      @click="deleteProduct(product)"
-                      class="icon"
-                      src="../../assets/icons/bin-green.png"
-                    />
-                    <img
-                      @click="editProduct(product)"
-                      class="icon"
-                      src="../../assets/icons/pencil.png"
-                    />
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-            <button
-              v-if='categorySelected'
-              @click="addNewProductBtn()"
-              class="btn categoryPadding"
-            >
-              Add Product
-            </button>
-          </div>
+    <div class='adminPanelArea' v-if='userLoggedIn'>
+      <div class='logoArea'>
+        <div class='headerLogos'>
+            <img @click='changeWindow(0)' class='headerLogo' src='../../assets/icons/pencil-green.png' />
+            <div class='line'></div>
+            <img @click='changeWindow(1)' class='headerLogo' src='../../assets/icons/file-green.png' />
+            <div class='line'></div>
+            <img @click='changeWindow(2)' class='headerLogo' src='../../assets/icons/list-green.png' />
         </div>
       </div>
-      <div v-if="showAddCategoryPopup">
-        <AddNewPopup @category-saved="saveNewCategory"></AddNewPopup>
-      </div>
-      <div v-if="showEditProductPopup">
-        <EditProductPopup
-          :productObject="productToEdit"
-          @saveProduct='saveProductEdits'
-          @closePopup="closeEditPopup"
-        ></EditProductPopup>
+
+      <div class='panelDisplay'>
+          <div class='adminArea'>
+              <transition :name="back ? 'slideback' : 'slide'">
+                <AdminConfigPangel v-if='currentIndex === 0' key='1' @notificationPopup='showNotificationPopup'></AdminConfigPangel>
+              </transition>
+              <transition :name="back ? 'slideback' : 'slide'">
+                <RecentOrderPanel v-if='currentIndex === 1' key='2'></RecentOrderPanel>
+                  <!-- <div  class='panel'>Orders Area</div> -->
+              </transition>
+              <transition :name="back ? 'slideback' : 'slide'">
+                  <div v-if='currentIndex === 2' key='3' class='panel'>History</div>
+              </transition>
+          </div>
+
       </div>
     </div>
+    
+
+
+
   </div>
 </template>
 
 <script>
-import AddNewPopup from "../AdminPage/AddNewPopup.vue";
-import EditProductPopup from "../AdminPage/EditProductPopup.vue";
+import AdminLogin from '../AdminPage/AdminLogin.vue';
+import AdminHeader from '../AdminPage/AdminHeader.vue';
+import AdminConfigPangel from '../AdminPage/AdminConfigPanel.vue';
+import RecentOrderPanel from '../AdminPage/RecentOrderPanel.vue';
 import Notification from '../../components/Designs/Notification.vue';
 export default {
   data() {
     return {
-      hideProductBtn: false,
-      categoryList: [],
-      productList: [],
-      showAddCategoryPopup: false,
-      showEditProductPopup: false,
-      showNewProductPopup: false,
-      categorySelected: '',
       notificationType: '',
       showNotification: '',
-      productToEdit: {},
+      notificationMessage: '',
+      userLoggedIn: false,
+      openConfigPanel: true,
+      openOrderPanel: false,
+      openHistoryPanel: false,
+      currentIndex: 0,
+      back: false,
     };
   },
   methods: {
-    viewCategory(category) {
-      fetch(`http://localhost:3000/api/products/category/${category._id}`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          this.productList = data;
-        });
-        this.categorySelected = category._id;
-    },
-    deleteProduct(product) {
-      console.log("DELETE PRODUCT", product);
-    },
-    editProduct(product) {
-      this.productToEdit = product;
-      product.edit = !product.edit;
-      this.hideProductBtn = !this.hideProductBtn;
-      this.showEditProductPopup = !this.showEditProductPopup;
-    },
-    addNewProductBtn() {
-      console.log("ADD NEW PRODUCT");
-      this.showEditProductPopup = true;
-    },
-    addNewCategory() {
-      console.log("ADD NEW CATEGORY");
-      this.showAddCategoryPopup = !this.showAddCategoryPopup;
-    },
-    saveNewCategory(categoryName) {
-      fetch("http://localhost:3000/api/categories/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: categoryName,
-        }),
-      });
-      this.showAddCategoryPopup = false;
-    },
-    closeEditPopup() {
-      this.productToEdit = {};
-      this.showEditProductPopup = false;
-    },
-    refreshProducts() {
-       fetch(`http://localhost:3000/api/products/category/${this.categorySelected}`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log("category items: ", data);
-          this.productList = data;
-        });
-    },
-    saveProductEdits(productInfo) { 
-      console.log('SAVING: ');
-        console.log(productInfo);     
-      if (productInfo._id) {
-        console.log('product edited');
-        this.saveEditedProduct(productInfo);
-      } else {
-        console.log('new product');
-        productInfo.genreId = this.categorySelected;
-        console.log(productInfo);  
-        this.addNewProduct(productInfo);
+    changeWindow(newIdx) {
+      if (this.currentIndex < newIdx) {
+          console.log("HIGHER");
+          this.back = false;
+          console.log('BACK:' + this.back );
+          this.currentIndex = newIdx;
       }
-      this.closeEditPopup();
-      this.productToEdit = {};
+      else if (this.currentIndex > newIdx) {
+          console.log("LOWER");
+          this.back = true;
+          
+          this.currentIndex = newIdx;
+      }
+      console.log(`CURRENT idx: ${this.currentIndex}`);
     },
-    saveEditedProduct(productObj) {
-      fetch(`http://localhost:3000/api/products/${productObj._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productObj)
-      })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        this.refreshProducts();
-        this.notificationType = true;
-        this.showNotification = true;
-
-        setTimeout(() => {
+    showNotificationPopup(obj) {
+      this.notificationType = obj.type;
+      this.notificationMessage = obj.message;   
+      this.showNotification = true;
+      
+      setTimeout(() => {
           this.showNotification = false;
         }, 2000)
-
-      })
-      .catch((err) => {
-        console.log(err);
-        this.notificationType = false;
-        this.showNotification = true;
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000)
-      })
-    },
-    addNewProduct(productObj) {
-      fetch(`http://localhost:3000/api/products/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productObj)
-      })
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        this.refreshProducts();
-        this.notificationType = true;
-        this.showNotification = true;
-
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000)
-      })
-      .catch((err) => {
-        console.log(err);
-        this.notificationType = false;
-        this.showNotification = true;
-
-        setTimeout(() => {
-          this.showNotification = false;
-        }, 2000)
-      })
     }
-    
+ 
   },
   created() {
     fetch("http://localhost:3000/api/categories/")
@@ -249,170 +100,124 @@ export default {
       });
   },
   components: {
-    AddNewPopup,
-    EditProductPopup,
-    Notification
+    AdminLogin,
+    AdminHeader,
+    Notification,
+    AdminConfigPangel,
+    RecentOrderPanel
   },
 };
 </script>
 
 <style scoped>
-h4 {
-  text-transform: uppercase;
-  padding-bottom: 30px;
-  padding-left: 10px;
-}
-
-.itemFont {
-  font-size: 13px;
-  padding: 0 40px;
-}
-
-.itemName {
-  padding-right: 40px;
-}
-
-.saveBtn {
-  padding: 5px 15px;
-  font-size: 13px;
-}
-
-button {
-  transition: all 1s ease-in-out;
-}
-
-.hide {
-  opacity: 0;
-}
-
-.show {
-  opacity: 1;
-}
-
 .adminBg {
   position: absolute;
-  /* z-index: 5; */
   width: 100%;
-  height: 100%;
-  background: rgba(32, 72, 88, 0.7);
+  min-height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.adminArea {
-  width: 80%;
-  height: 80%;
-  background: white;
-  box-shadow: 0 0 20px rgb(100, 98, 98);
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+.greenBg {
+  background: rgba(32, 72, 88, 0.7);
 }
 
-.adminPanel {
-  display: flex;
-  justify-content: space-between;
-  margin: 40px;
-}
-
-.panelSection {
-  display: flex;
-  flex-direction: column;
+.adminPanelArea {
+  position: fixed;
   width: 100%;
-  flex: 1;
-  text-align: left;
-  padding: 0 20px;
-}
-
-.categoryPanel {
-  flex: 1;
-}
-
-.productPanel {
-  flex: 2;
-}
-
-.scroll {
-  overflow: auto;
-  height: 300px;
-}
-
-.categoryItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 10px;
-  border-bottom: 1px solid #ccc;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.categoryItem:hover {
-  background: rgb(223, 222, 222);
-}
-
-.icon {
-  width: 20px;
-  height: 20px;
-}
-
-.categoryPadding {
-  position: absolute;
-  bottom: 20%;
-  padding: 5px 15px;
-}
-
-.productItem {
+  height: 100%;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #ccc;
-  padding: 5px;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-.productShow {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  padding-top: 40px;
 }
 
-.productDesc,
-.productIcons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 10px 0;
+.logoArea {
+  width: 50%;
 }
 
-.productDesc {
-  flex: 4;
+.headerLogos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.productIcons {
-  flex: 1;
-  margin-left: 50px;
-  justify-content: space-between;
+.headerLogo {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
 }
 
-.btnRight {
-  width: 80%;
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 5px;
-}
-/* 
-@keyframes appear {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+.headerLogo:hover {
+    transform: scale(1.05);
+    /* border-bottom: 2px solid rgba(32, 72, 88, 0.7); */
 }
 
-.appear-enter-active {
-    animation: appear 1.8s;
+
+.line {
+    width: 100px;
+    height: 3px;
+    background: rgba(32, 72, 88, 0.7);
+    border-radius: 5px;
 }
 
-.appear-leave-active {
-    animation: appear 2s reverse;
-} */
+.panelDisplay {
+    position: relative;
+    top: 5%;
+    width: 100%;
+    height: 100%;
+    margin-top: 60px;
+    background: #f8f8f8;
+    padding: 30px 20px 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.adminArea {
+    position: relative;
+    overflow: hidden;
+    /* top: 20%; */
+    width: 95%;
+    height: 100%;
+    /* border: 2px solid red; */
+    /* height: 100%; */
+    
+    
+}
+
+.panel {
+    position: absolute;
+    width: 100%;
+    border: 2px solid blue;
+    height: 100%;
+}
+
+.slide-leave-active,
+.slide-enter-active {
+    transition: 1s;
+}
+.slide-enter {
+    transform: translate(100%, 0);
+}
+.slide-leave-to {
+    transform: translate(-100%, 0);
+}
+
+.slideback-leave-active,
+.slideback-enter-active {
+    transition: 1s;
+}
+.slideback-enter {
+    transform: translate(-100%, 0);
+}
+.slideback-leave-to {
+    transform: translate(100%, 0);
+}
+
 </style>

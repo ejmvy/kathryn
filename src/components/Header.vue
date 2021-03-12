@@ -66,6 +66,7 @@ header {
   width: 100%;
   position: absolute;
   background: rgba(32, 72, 88, 0.7);
+  /* background: rgba(42, 122, 153,0.9); */
   box-shadow: 0 5px 10px 5px #ccc;
 }
 

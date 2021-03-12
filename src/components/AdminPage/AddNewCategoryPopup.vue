@@ -1,5 +1,7 @@
 <template>
   <div class="mainPopupArea">
+    <!-- <img class='closeBtn' src='../../assets/icons/down-green.png' /> -->
+    <img @click='closePopup' class='closeBtn' src='../../assets/icons/close-grey.png' />
     <h2>New Category</h2>
     <div class="inputArea">
       <label>Enter Category Name:</label>
@@ -23,34 +25,47 @@ export default {
       console.log(`name: ${this.newCategoryName}`);
       this.$emit("category-saved", this.newCategoryName);
     },
+    closePopup() {
+      this.$emit('closeCategoryPopup');
+    }
   },
 };
 </script>
 
 <style scoped>
+.closeBtn {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
 .mainPopupArea {
   width: 40%;
   /* height: 40%; */
   background: white;
   position: absolute;
-  top: 25%;
+  top: 5%;
   left: 30%;
   z-index: 2;
   border-radius: 8px;
   padding: 25px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 35px #8d8c8c;
+  box-shadow: 0 2px 10px #c0bfbf;
 }
 
 h2 {
-  margin-bottom: 40px;
+  font-size: 15px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  text-align: left;
 }
 
 input {
-  background: #f2f2f2;
   padding: 15px;
-  /* width: 100%; */
   border: none;
   border-bottom: 1px solid #ccc;
   transition: all 0.2s ease-in-out;
