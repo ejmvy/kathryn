@@ -21,7 +21,7 @@ export default {
         position: absolute;
         top: 20px;
         right: 20px;
-        /* width: 300px; */
+        min-width: 200px;
         background: #f2f2f2;
         box-shadow: 0 3px 5px #666666;
         padding: 10px 20px;

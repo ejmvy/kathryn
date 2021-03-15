@@ -35,7 +35,7 @@
           </div>
           <div class="contactInfo">
             <label>Phone</label>
-            <p>+353 852577 656</p>
+            <p>+353 85 2577 656</p>
           </div>
           <div class="contactInfo">
             <label>Social</label>
@@ -186,7 +186,7 @@ textarea:focus {
 }
 
 .circle {
-  background: rgba(42, 122, 153,0.9);
+  background: rgba(32, 72, 88, 0.7);
   color: white;
   border-radius: 50%;
   padding: 8px;

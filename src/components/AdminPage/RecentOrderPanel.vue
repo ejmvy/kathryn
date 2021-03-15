@@ -207,6 +207,7 @@ export default {
     /* border: 1px solid red; */
     justify-content: space-between;
     padding: 15px 0;
+    font-size: 14px;
     /* border-bottom: 1px solid #ccc; */
     border-bottom: 1px solid rgba(32, 72, 88, 0.5);
 }
@@ -227,6 +228,7 @@ export default {
     height: 100%;
     display: flex;
     padding: 40px 0;
+    font-size: 14px;
     /* background: white; */
 }
 

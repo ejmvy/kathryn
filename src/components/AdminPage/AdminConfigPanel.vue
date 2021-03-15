@@ -337,7 +337,7 @@ button {
 
 .categoryPadding {
   position: absolute;
-  bottom: 10%;
+  bottom: 20%;
   padding: 5px 15px;
 }
 

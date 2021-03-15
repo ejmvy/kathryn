@@ -1,8 +1,10 @@
 <template>
     <header>
-        <img class='headerIcon' src='../../assets/icons/house.png' />
+        <router-link to='/'>
+            <img class='headerIcon' src='../../assets/icons/house.png' />
+        </router-link>
         <p>Welcome Kathryn!</p>
-        <img class='headerIcon' src='../../assets/icons/close.png' />
+        <img @click='$emit("logout")' class='headerIcon' src='../../assets/icons/close.png' />
     </header>
 
 
@@ -86,6 +88,7 @@ export default {
     .headerIcon {
         width: 25px;
         height: 25px;
+        cursor: pointer;
     }
 
     p {

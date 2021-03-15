@@ -1,21 +1,29 @@
 <template>
+    <transition name='appear' :duration="{ enter: 800, leave: 800 }">
+        <Notification v-if='showNotification' :type='notificationType' :message='notificationMessage'></Notification>
+      </transition>
     <div class='loginArea'>
 
         <div class='signinArea'>
             <h5>Login</h5>
             <input class='loginInput' placeholder="Email" v-model='userEmail' />
             <input class='loginInput' placeholder="Password" v-model='userPassword'/>
-            <button v-on:click="checkUserAuth" class='btn loginBtn'>GO</button>
+            <button v-on:click="checkUserAuth" class='btn enterbtn' :class="{'disabled': !detailsEntered}">GO</button>
         </div>
     </div>
 </template>
 
 <script>
+import Notification from '../../components/Designs/Notification.vue';
 export default {
+    
     data() {
         return {
             userEmail: '',
             userPassword: '',
+            showNotification: false,
+            notificationType: '',
+            notificationMessage: '',
         }
     },
     methods: {
@@ -23,14 +31,7 @@ export default {
             console.log(`${this.userEmail} : ${this.userPassword}`);
             // first do call to AUTH api to check user is correct. Receive token
             // then check with token if user is Admin. 
-            // const confirmUser = {
-            //     email: this.userEmail,
-            //     password: this.userPassword,
-            // }
 
-            // body: JSON.stringify(this.newUser)
-
-            // if(this.userEmail && this.userPassword) {
             fetch('http://localhost:3000/api/auth', {
                 method: "POST",
                 headers: {
@@ -43,20 +44,66 @@ export default {
             })
             .then((res) => {
                 console.log("RESPONSE");
-                res = res.data;
-                console.log(res);
-                // return 
+                const resp = res.text();
+                console.log(resp);
+                return resp;
             })
-            .then((data) => {
-                console.log(data);
-                // this.welcomePopup = true;
-                // this.$emit('showNotification', 'success');
+            .then((key) => {
+                console.log(key);
+                this.checkAdminDetails(key);
             })
             .catch((err => {
                 console.log(`error: ${err}`);
             }))
-            this.$emit('loggedIn');
+            
+        },
+        checkAdminDetails(key) {
+            fetch('http://localhost:3000/api/users/me', {
+                method: "GET",
+                headers: {
+                    "x-auth-token": key,
+                },
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((user) => {
+                console.log(user);
+                if (user.isAdmin) {
+                    this.$emit('loggedIn');
+                    // this.$emit('notificationPopup', {
+                    //     type: true,
+                    //     message: 'Welcome Kathryn!'
+                    // });
+                    this.showLocalNotification({
+                        type: true,
+                        message: 'Welcome Kathryn!'
+                    })
+                } else {
+                    this.showLocalNotification({
+                        type: false,
+                        message: 'User not recognised.'
+                    })
+                }
+            })
+        },
+        showLocalNotification(obj) {
+            this.notificationType = obj.type;
+            this.notificationMessage = obj.message;   
+            this.showNotification = true;
+            
+            setTimeout(() => {
+                this.showNotification = false;
+                }, 2000)
         }
+    },
+    computed: {
+        detailsEntered() {
+            return this.userEmail && this.userPassword;
+        }
+    },
+    components: {
+        Notification
     }
 }
 
@@ -133,4 +180,21 @@ export default {
     .signinArea input:focus {
         border-bottom: 2px solid rgb(42, 122, 153);
     }
+
+     .enterbtn {
+        background: #365a69;
+        border: 2px solid #365a69;
+        color: white;
+
+    }
+
+    .disabled {
+        border: 2px solid #ccc;
+        cursor: not-allowed;
+        pointer-events: none;
+        background: none;
+        color: #ccc;
+    }
+
+   
 </style>

@@ -7,7 +7,7 @@
       </transition>
     </div>
 
-    <AdminHeader v-if='userLoggedIn'></AdminHeader>
+    <AdminHeader v-if='userLoggedIn' @logout='logUserOut' @notificationPopup='showNotificationPopup'></AdminHeader>
 
     <div class='adminPanelArea' v-if='userLoggedIn'>
       <div class='logoArea'>
@@ -23,14 +23,15 @@
       <div class='panelDisplay'>
           <div class='adminArea'>
               <transition :name="back ? 'slideback' : 'slide'">
-                <AdminConfigPangel v-if='currentIndex === 0' key='1' @notificationPopup='showNotificationPopup'></AdminConfigPangel>
+                <AdminConfigPangel class='panel' v-if='currentIndex === 0' key='1' @notificationPopup='showNotificationPopup'></AdminConfigPangel>
               </transition>
               <transition :name="back ? 'slideback' : 'slide'">
-                <RecentOrderPanel v-if='currentIndex === 1' key='2'></RecentOrderPanel>
+                <RecentOrderPanel class='panel' v-if='currentIndex === 1' key='2'></RecentOrderPanel>
                   <!-- <div  class='panel'>Orders Area</div> -->
               </transition>
               <transition :name="back ? 'slideback' : 'slide'">
-                  <div v-if='currentIndex === 2' key='3' class='panel'>History</div>
+                  <OrderHistoryPanel class='panel' v-if='currentIndex === 2' key='3'></OrderHistoryPanel>
+                  <!-- <div  class='panel'>History</div> -->
               </transition>
           </div>
 
@@ -48,6 +49,7 @@ import AdminLogin from '../AdminPage/AdminLogin.vue';
 import AdminHeader from '../AdminPage/AdminHeader.vue';
 import AdminConfigPangel from '../AdminPage/AdminConfigPanel.vue';
 import RecentOrderPanel from '../AdminPage/RecentOrderPanel.vue';
+import OrderHistoryPanel from '../AdminPage/OrderHistoryPanel.vue';
 import Notification from '../../components/Designs/Notification.vue';
 export default {
   data() {
@@ -87,6 +89,16 @@ export default {
       setTimeout(() => {
           this.showNotification = false;
         }, 2000)
+    },
+    logUserOut() {
+      this.notificationType = 'success';
+      this.notificationMessage = 'Bye Kathryn!';   
+      this.showNotification = true;
+      
+      setTimeout(() => {
+          this.showNotification = false;
+        }, 2000)
+      this.userLoggedIn = false;
     }
  
   },
@@ -104,7 +116,8 @@ export default {
     AdminHeader,
     Notification,
     AdminConfigPangel,
-    RecentOrderPanel
+    RecentOrderPanel,
+    OrderHistoryPanel
   },
 };
 </script>
@@ -125,7 +138,7 @@ export default {
 }
 
 .adminPanelArea {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   margin-top: 100px;
@@ -172,7 +185,7 @@ export default {
     top: 5%;
     width: 100%;
     height: 100%;
-    margin-top: 60px;
+    margin-top: 30px;
     background: #f8f8f8;
     padding: 30px 20px 0 20px;
     display: flex;
@@ -192,10 +205,11 @@ export default {
 }
 
 .panel {
-    position: absolute;
+    position: relative;
     width: 100%;
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     height: 100%;
+    /* right: 100%; */
 }
 
 .slide-leave-active,

@@ -7,13 +7,13 @@
             <div class='halfPage login'>
                 <div class='signinArea'>
                     <h5>Login</h5>
-                    <input class='loginInput' placeholder="Email" />
-                    <input class='loginInput' placeholder="Password" />
+                    <input class='loginInput' placeholder="Email" v-model="loginUser.email" />
+                    <input class='loginInput' placeholder="Password" v-model="loginUser.password"  />
                     <div class="btnArea">
                         
                     </div>
                 </div>
-                <button @click='welcomePopup = true' class='btn loginBtn'>GO</button>
+                <button @click='loginUserFn' class='btn loginBtn' :class="{'disableLogin': loginComplete}">GO</button>
             </div>
             <div class='halfPage register'>
                 <div class='registerArea'>
@@ -22,7 +22,7 @@
                     <input class='loginInput' placeholder="Email" v-model="newUser.email" />
                     <input class='loginInput' placeholder="Password" v-model="newUser.password" />
                 </div>
-                <button class='btn loginBtn registerBtn' @click='registerUser()'>Sign Up</button>
+                <button class='btn loginBtn registerBtn' @click='registerUser()' :class="{'disable': informationComplete}">Sign Up</button>
             </div>
         </div>
         <!-- // :class="{'welcomeAppear': welcomePopup}"-->
@@ -32,7 +32,7 @@
                     <div class='topPopup'>
                         <img class='successLogo' src='../../assets/icons/cheer.png' />
                         <h3>Success!</h3>
-                        <h4>Welcome {{ newUser.name }}</h4>
+                        <h4>Welcome {{ newUser.name ? newUser.name : loggedInUser.name }}</h4>
                     </div>
 
                     <p>Congratulations your account has been successfully set up.</p>
@@ -58,6 +58,11 @@ export default {
                 email: "",
                 password: "",
             },
+            loginUser: {
+                email: "",
+                password: "",
+            },
+            loggedInUser: {},
             welcomePopup: false,
             showNotification: false,
             notificationType: '',
@@ -65,10 +70,54 @@ export default {
         }
     },
     methods: {
+        loginUserFn() {
+            fetch('http://localhost:3000/api/auth', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(this.loginUser),
+                mode: 'cors',
+            })
+            .then((res) => {
+                console.log('login res:');
+                const resp = res.text();
+                console.log(resp);
+                return resp;
+            })
+            .then((key) => {
+                
+                this.getUserDetails(key);
+            })
+            .catch((err => {
+                console.log("Error:", err);
+            }))
+        },
+        getUserDetails(key) {
+            console.log('LOGIN data: ');
+            console.log(key);
+            fetch('http://localhost:3000/api/users/me', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': key
+                },
+            })
+            .then((res) => {
+                return res.json();
+            })
+            .then((data) => {
+                console.log('user data: ');
+                console.log(data);
+                this.loggedInUser = data;
+                this.welcomePopup = true;
+            })
+            .catch((err) => {
+                console.log(`Err: ${err}`);
+            })
+        },
         registerUser() {
-            console.log(`user: `);
-            console.log(this.newUser);
-
             this.welcomePopup = true;
 
             if (this.newUser.name && this.newUser.email && this.newUser.password) {
@@ -81,17 +130,18 @@ export default {
                     body: JSON.stringify(this.newUser)
                 })
                 .then((res) => {
-                    console.log('res:');
-                    return res.json();
+                    const resp = res.text();
+                    console.log(resp);
+                    return resp;
                 })
-                .then((data) => {
-                    console.log('data: ');
-                    console.log(data);
+                .then((key) => {
+                    console.log('NEW USER DATA: ');
+                    console.log(key);
                     this.welcomePopup = true;
-                    // this.$emit('showNotification', 'success');
+                    this.$emit('showNotification', 'success');
                 })
                 .catch((err => {
-                    console.log(`error: ${err}`);
+                     console.log("Error:", err);
                 }))
             }
             else {
@@ -109,6 +159,22 @@ export default {
         },
         enterShop() {
             this.$router.push('/shop');
+        }
+    },
+    computed: {
+        informationComplete() {
+            if (this.newUser.name && this.newUser.email && this.newUser.password) {
+                return false;
+                
+            }
+            return true;
+        },
+        loginComplete() {
+            if (this.loginUser.email && this.loginUser.password) {
+                return false;
+                
+            }
+            return true;
         }
     },
     components: {
@@ -263,14 +329,15 @@ export default {
         width: 100%;
         background: none;
         border: 2px solid white;
-        color: white;
+        color: #365a69;
+        background: white;
     }
 
-    .registerBtn:hover {
+    /* .registerBtn:hover {
         background: white;
         color: #365a69;
         border: 2px solid white;
-    }
+    } */
 
      .welcomePopup {
          position: relative;
@@ -312,5 +379,21 @@ export default {
         width: 50%;
         margin: 0 auto;
         padding: 10px 0 30px;
+    }
+
+    .disable {
+        border: 2px solid #ccc;
+        color: #ccc;
+        cursor: not-allowed;
+        pointer-events: none;
+        background: none;
+    }
+
+    .disableLogin {
+        border: 2px solid rgba(32, 72, 88, 0.7);
+        color: rgba(32, 72, 88, 0.7);
+        cursor: not-allowed;
+        pointer-events: none;
+        background: none;
     }
  </style>
