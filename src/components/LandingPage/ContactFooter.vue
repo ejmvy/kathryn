@@ -11,7 +11,7 @@
 
     <div class="mainFooter">
       <div class="footerArea">
-        <p>@2021 Kathryn Ceramics</p>
+        <p>@2021 {{ getfooterText ? shortName : longName }}</p>
         <p>Designed by EJ</p>
       </div>
     </div>
@@ -23,8 +23,21 @@ export default {
   data() {
     return {
       logos: ["logos/instaLogo.png", "logos/fb-f.png", "logos/etsy2.png"],
+      windowWidth: window.innerWidth,
+      longName: 'Kathryn Ceramics',
+      shortName: 'KC'
     };
   },
+  mounted() {
+    window.addEventListener('rezise', () => {
+      this.windowWidth = window.innerWidth;
+    })
+  },
+  computed: {
+    getfooterText() {
+      return this.windowWidth <= 600;
+    }
+  }
 };
 </script>
 
@@ -51,10 +64,10 @@ p {
   background: black;
   color: white;
   border-radius: 50%;
-  /* padding: 8px; */
+  padding: 8px;
   margin: 0 20px;
   cursor: pointer;
-  width: 45px;
+  width: 50px;
   height: 45px;
   transition: all 0.2s ease-in-out;
 }
@@ -67,7 +80,7 @@ p {
   width: 30px;
   height: 30px;
   font-size: 50px;
-  top: 15%;
+  top: 0;
 }
 
 .mainFooter {

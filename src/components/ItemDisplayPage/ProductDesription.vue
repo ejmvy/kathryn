@@ -53,6 +53,8 @@ p {
     margin-top: 50px;
 }
 
+
+
 .productSection {
     display: flex;
     flex-direction: column;
@@ -72,5 +74,20 @@ label {
     text-transform: uppercase;
     font-size: 15px;
     font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+    .productArea {
+        flex-direction: column;
+        margin-top: 0;
+    }
+    .productSection {
+        padding-top: 20px;
+    }
+    .horiz {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
 }
 </style>

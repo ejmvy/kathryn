@@ -116,6 +116,14 @@ p {
 
 }
 
+@media screen and (max-width: 600px) {
+  .cartArea {
+    /* width: 100%; */
+    display: none;
+
+  }
+}
+
 .topLine {
   display: flex;
   border-bottom: 1px solid #ccc;

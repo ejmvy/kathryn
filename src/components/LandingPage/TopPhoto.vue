@@ -35,21 +35,15 @@ section {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  /* background: #ecedf1; */
-  /* border: 2px solid red; */
-  /* padding-top: 90px; */
   min-height: 100vh;
-/* border-bottom: 1px solid #ccc; */
 }
 
 .mainTextArea {
   position: absolute;
-  /* bottom: -50px; */
   width: 50%;
   left: 25%;
   bottom: 0;
   margin: 0 auto;
-  /* margin-left: 5%; */
   padding: 10px 20px 20px 20px;
   text-align: center;
   flex: 1;
@@ -73,19 +67,16 @@ h1 {
 }
 
 .mainImageArea {
-  /* flex: 5; */
   position: absolute;
   width: 100vw;
   height: 100vh;
   flex: 2;
-  /* border: 2px solid green;  */
   z-index: -1;
 }
 
 .topImage {
   width: 100%;
   height: 100%;
-  /* border: 1px solid blue; */
 }
 
 @media only screen and (min-width:1200px) {
@@ -93,6 +84,17 @@ h1 {
   section {
     width: 100%;
 
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .mainTextArea {
+    width: 90%;
+    left: 5%;
+  }
+
+  .logo {
+    font-size: 28px;
   }
 }
 </style>

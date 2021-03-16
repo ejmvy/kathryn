@@ -27,4 +27,11 @@ export default {
   flex: 1;
   margin: 20px;
 }
+
+@media screen and (max-width: 370px) {
+  .displayImg {
+    width: 300px;
+    margin: 0;
+  }
+}
 </style>

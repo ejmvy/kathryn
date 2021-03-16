@@ -24,7 +24,7 @@
             <div class='textArea'>
                 <h3 id='leftAlign'>{{ item.name }}</h3>
                 <p  id='leftAlign'>{{ item.price }}</p>
-                <p>{{ item.description }}</p>
+                <p class='smFont'>{{ item.description }}</p>
 
                 <div class='customerChoice'>
                     <label>Color</label>
@@ -42,7 +42,9 @@
                     </select>
                 </div>
 
-                <button @click='addItemToCart(item)' class='btn'>Add To Basket</button>
+                <div class='alignBtn'>
+                    <button @click='addItemToCart(item)' class='btn'>Add To Basket</button>
+                </div>
             </div>
         </div>
 
@@ -174,6 +176,7 @@ select {
 
 .shopPage {
   padding-top: 120px;
+  /* border: 2px solid red; */
   /* margin-bottom: 80px; */
 }
 
@@ -186,14 +189,12 @@ select {
 .routerLink {
     text-decoration: none !important;
     color: #666666;
-    /* font-weight: bold; */
     cursor: pointer;
     padding: 10px 0;
 }
 
 .routerLink:hover {
     border-bottom: 2px solid #ccc;
-    /* text-decoration: underline; */
 }
 
 .shopNav {
@@ -211,7 +212,6 @@ select {
     display: flex;
     justify-content: center;
     margin-top: 50px;
-    
 }
 
 .imageArea {
@@ -274,5 +274,61 @@ select {
     font-size: 13px;
     color: #204858;
     outline: none;
+}
+
+@media screen and (max-width: 750px) {
+    .shopPage {
+        padding-top: 70px;
+    }
+    .displayArea {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .imageArea {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lrgImage {
+        order: 0;        
+    }
+    .lrgImageDisplay {
+        margin-left: 0;
+        width: 100%;
+        height: 350px;
+    }
+    .smallImages {
+        order: 1;
+        display: flex;
+        flex-direction: row;
+        width: 90%;
+        justify-content: space-between;
+        
+    }
+    .smImageDisplay {
+        width: 100%;
+        padding: 0 5px;
+        flex: 1;
+    }
+
+    .textArea {
+        margin-left: 0;
+        width: 90%;
+        padding-top: 20px;
+    }
+    .alignBtn {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .smFont {
+        font-size: 13px;;
+    }
 }
 </style>

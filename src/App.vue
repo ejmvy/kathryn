@@ -185,4 +185,35 @@ section {
 .appearUP-leave-active {
     animation: appearUP 2s reverse;
 }
+
+@media screen and (max-width: 600px) {
+  .line1 {
+    width: 200px;
+  }
+  .line2 {
+    width: 100px;
+  }
+  p {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+  h2 {
+    font-size: 18px;
+  }
+  h4 {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .line1 {
+    width: 140px;
+  }
+  .line2 {
+    width: 80px;
+  }
+}
 </style>

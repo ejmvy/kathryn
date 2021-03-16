@@ -51,6 +51,10 @@ export default {
   border-radius: 50%;
 }
 
+p {
+  font-size: 15px;
+}
+
 @media screen and (max-width: 1100px) {
   .artistImg {
     width: 320px;
@@ -74,7 +78,23 @@ export default {
   }
 }
 
-p {
-  font-size: 15px;
+@media screen and (max-width: 500px) {
+  .artistImg {
+    width: 250px;
+    height: 230px;
+  }
+
+  h1 {
+    font-size: 22px;
+    padding-top: 20px;
+  }
+  p {
+    font-size: 13px;
+  }
+  .aboutText {
+    width: 80%;
+  }
 }
+
+
 </style>

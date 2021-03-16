@@ -41,12 +41,8 @@ export default {
 
 <style scoped>
 #welcomeMessage {
-  /* background: #f5f5f5; */
-  /* border-top: 1px solid #204858; */
-  /* border: 2px solid red; */
   width: 100%;
   padding-bottom: 0;
-  /* padding: 0 50px; */
 }
 #welcomeMessage .welcome {
   height: 80%;
@@ -73,7 +69,7 @@ export default {
 .designBottom {
   margin-top: 40px;
 }
-.line1 {
+/* .line1 {
   width: 300px;
   height: 3px;
   background: #204858;
@@ -92,8 +88,19 @@ export default {
   background: #204858;
   border-radius: 50%;
   margin-top: 10px;
-}
+} */
 .designBottom .line1 {
   margin-top: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  #welcomeMessage .welcome {
+    width: 80%;
+  }
+
+  h4 {
+    margin: 40px 0;
+
+  }
 }
 </style>
