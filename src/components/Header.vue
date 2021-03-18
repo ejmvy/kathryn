@@ -52,15 +52,15 @@
     </div>
   </header>
 
-  <!-- <div :class="{ cartOpened: cartOpen }">
+  <div :class="{ cartOpened: cartOpen }">
     <div class="cartImport">
-      <CartPopup></CartPopup>
+      <CartPopup @closePopup="openCart()"></CartPopup>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
-// import CartPopup from "../components/views/CartPopup.vue";
+import CartPopup from "../components/views/CartPopup.vue";
 export default {
   data() {
     return {
@@ -86,7 +86,7 @@ export default {
     }
   },
   components: {
-    // CartPopup,
+    CartPopup,
   },
 };
 </script>

@@ -1,6 +1,11 @@
 <template>
  <div class='cartMainBg'>
      <div class='cartArea'>
+         <div v-if='mobileWidth' class='topIcon'>
+            <router-link to='/'>
+                <img class='closeIcon' src='../../assets/icons/close-grey.png' />
+                </router-link>
+            </div>
          <div class='purchases'>
             <table>
                 <tr class='headerTitle'>
@@ -44,20 +49,20 @@
             </table>
          </div>
          <div class='buySection'>
-             <div class='topIcon'>
+             <div v-if='!mobileWidth' class='topIcon'>
                  <router-link to='/'>
                     <img class='closeIcon' src='../../assets/icons/close.png' />
                  </router-link>
              </div>
              <div class='buyPanel'>
-             <div class='buyingInfo'>
-                <h3>Total: {{getTotal}}</h3>
-                <p>Shipping & Postage Included</p>
-             </div>
-            <div class='checkoutBtns'>
-                <button class='btn contactBtn'>Checkout</button>
-                <!-- <button >PayPal</button> -->
-            </div>
+                <div class='buyingInfo'>
+                    <h3>Total: {{getTotal}}</h3>
+                    <p>Shipping & Postage Included</p>
+                </div>
+                <div class='checkoutBtns'>
+                    <button class='btn contactBtn'>Checkout</button>
+                    <!-- <button >PayPal</button> -->
+                </div>
 
              </div>
              
@@ -72,8 +77,14 @@ export default {
         return {
             cartItems: [],
             total: 0,
-            isRemoved: false
+            isRemoved: false,
+            windowWidth: window.innerWidth,
         }
+    },
+    mounted() {
+        window.addEventListener('rezise', () => {
+        this.windowWidth = window.innerWidth;
+        })
     },
     methods: {
         minusPrice(product) {
@@ -113,6 +124,9 @@ export default {
                 totalValue = totalValue + productTotal;
             })
             return totalValue.toFixed(2);
+        },
+         mobileWidth() {
+        return this.windowWidth <= 750;
         }
     },
     created() {
@@ -186,6 +200,8 @@ button {
   
 }
 
+
+
 .purchases {
     flex: 2;
     padding: 20px;
@@ -195,10 +211,13 @@ button {
 
 .cartListArea {
     overflow: auto;
-    height: 500px;
+    height: 90%;
     transition: all 5s ease-in-out;
     /* border: 1px solid red; */
 }
+
+
+
 
 .cartItem {
     transition: all 5s ease-in-out;
@@ -280,8 +299,8 @@ tr {
 }
 
 .closeIcon {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     cursor: pointer;
 }
 
@@ -351,9 +370,57 @@ tr {
 
 .buyingInfo p {
     color: white;
+    padding: 0 10px;
 }
 
 .removeAppear .removeBtn {
   opacity: 1;
+}
+
+
+@media screen and (max-width: 900px) {
+    .cartArea {
+        width: 90%;
+    }
+
+   
+}
+
+@media screen and (max-width: 750px) {
+    .cartArea {
+        flex-direction: column;
+    }
+
+     .purchases {
+        padding-left: 20px;
+        padding-top: 0;
+    }
+
+    .buyPanel {
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+    }
+
+    .checkoutBtns {
+        padding-top: 0;
+    }
+
+    .buyingInfo {
+        text-align: left;
+
+    }
+    .buyingInfo p {
+        padding: 0;
+    }
+
+    .btn {
+        margin-top: 0;
+    }
+    .buySection {
+        flex: 0;
+    }
 }
 </style>

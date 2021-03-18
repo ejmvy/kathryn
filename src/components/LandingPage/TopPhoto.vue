@@ -47,7 +47,7 @@ section {
   padding: 10px 20px 20px 20px;
   text-align: center;
   flex: 1;
-  z-index: 3; 
+  /* z-index: 3;  */
   
 }
 

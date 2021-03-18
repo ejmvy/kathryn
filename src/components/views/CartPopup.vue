@@ -1,6 +1,10 @@
 <template>
   <div class="cartArea">
     <div class="arrow"></div>
+   
+      <div v-if='mobileWidth' class='closeBtnArea'>
+        <img @click='$emit("closePopup")' class='smallIcon' src='../../assets/icons/close-grey.png' />
+      </div>
     <div class='topLine'>
       <div class='iconArea'>
         <img class='smallIcon' src='../../assets/logos/cart.png' />
@@ -41,6 +45,11 @@ export default {
       totalItems: 0,
     };
   },
+  mounted() {
+    window.addEventListener('rezise', () => {
+      this.windowWidth = window.innerWidth;
+    })
+  },
   methods: {
     deleteItemFromCart(item, idx) {
       console.log("item to delete:", item._id);
@@ -59,6 +68,9 @@ export default {
     },
     getCartLength() {
       return this.totalItems;
+    },
+    mobileWidth() {
+      return this.windowWidth <= 600;
     }
   },
   created() {
@@ -116,13 +128,6 @@ p {
 
 }
 
-@media screen and (max-width: 600px) {
-  .cartArea {
-    /* width: 100%; */
-    display: none;
-
-  }
-}
 
 .topLine {
   display: flex;
@@ -194,4 +199,31 @@ p {
   width: 25px;
   height: 25px;
 }
+
+.closeBtnArea {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .cartArea {
+    z-index: 5 !important;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    background: rgba(32, 72, 88, 1);
+    border-radius: 0;
+    float:none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .topLine {
+    margin-top: 20px;
+  }
+}
+
+
 </style>
