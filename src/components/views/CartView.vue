@@ -17,11 +17,11 @@
                 <div class='cartListArea'>
                     <tr class='cartItem'  v-for='(product, idx) in cartItems' :key='idx'>
                             <td>
-                            <div class='productDesc'>
+                            <div class='productDesc' :class="{padRight: mobileWidth}">
                                 <img class='productIcon' :src='product.imageUrl' />
                                 <p>{{ product.name }}</p>
                                 <div class='light'>{{ product.colour }}</div>
-                                <div class='light'>{{ product._id }}</div>
+                                <div v-if='!mobileWidth' class='light'>{{ product._id }}</div>
                                 
                             </div>
                         </td>
@@ -43,7 +43,7 @@
                         
                     </tr>
                 </div>
-                <div v-if='cartItems.length > 3' class='downIconArea'>
+                <div v-if='cartItems.length > 2' class='downIconArea'>
                     <img class='downIcon' src='../../assets/icons/down-green.png' />
                 </div>
             </table>
@@ -217,6 +217,9 @@ button {
 }
 
 
+.padRight {
+    margin-right: 30px;
+}
 
 
 .cartItem {
@@ -390,8 +393,14 @@ tr {
     .cartArea {
         flex-direction: column;
     }
+    
+    .cartListArea {
+        height: 400px;
+        /* border: 2px solid yellow; */
+    }
 
      .purchases {
+         padding: 0;
         padding-left: 20px;
         padding-top: 0;
     }
@@ -401,7 +410,7 @@ tr {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 10px 20px;
+        padding: 0 20px;
     }
 
     .checkoutBtns {
@@ -414,6 +423,7 @@ tr {
     }
     .buyingInfo p {
         padding: 0;
+        font-size: 11px;
     }
 
     .btn {
@@ -422,5 +432,39 @@ tr {
     .buySection {
         flex: 0;
     }
+    .downIconArea {
+        bottom: 0;
+    }
+
+    h3 {
+        margin-bottom: 0;
+    }
 }
+
+@media screen and (max-width: 650px) {
+    .cartMainBg {
+       margin: 0;
+       background: white;
+    }
+    .cartArea {
+        width: 100%;
+        height: 100%;
+        
+        box-shadow: none;
+    }
+
+    .cartListArea {
+        /* border: 2px solid red; */
+        height: 65vh;
+    }
+
+    .purchases {
+       padding: 0 10px;
+    }
+
+    .headerTitle {
+        padding-bottom: 30px;;
+    }
+}
+
 </style>

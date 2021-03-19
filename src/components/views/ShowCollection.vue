@@ -111,4 +111,13 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
 }
+
+
+@media screen and (max-width: 700px) {
+
+  .itemsArea {
+    padding-top: 30px;
+    justify-content: center;
+  }
+}
 </style>

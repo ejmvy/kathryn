@@ -16,7 +16,7 @@
           <a href="#">Gallery</a>
         </li>
         <li>
-          <router-link to="login">
+          <router-link to="/login">
             <img class='userLogo' src='../assets/icons/userIcon.png' />
           </router-link>
         </li>
@@ -53,7 +53,7 @@
   </header>
 
   <div :class="{ cartOpened: cartOpen }">
-    <div class="cartImport">
+    <div v-if='cartOpen' class="cartImport">
       <CartPopup @closePopup="openCart()"></CartPopup>
     </div>
   </div>

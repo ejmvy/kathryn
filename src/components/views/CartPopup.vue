@@ -1,8 +1,8 @@
 <template>
   <div class="cartArea">
     <div class="arrow"></div>
-   
-      <div v-if='mobileWidth' class='closeBtnArea'>
+   <!-- //v-if='mobileWidth' -->
+      <div class='closeBtnArea'> 
         <img @click='$emit("closePopup")' class='smallIcon' src='../../assets/icons/close-grey.png' />
       </div>
     <div class='topLine'>

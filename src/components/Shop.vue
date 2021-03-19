@@ -75,8 +75,16 @@ export default {
 }
 
 @media screen and (max-width: 700px) {
+  .shopPage {
+    padding-top: 30px;
+  }
   .itemsArea {
+    padding-top: 30px;
     justify-content: center;
+    /* align-items: center;
+    flex-direction: column; */
+    /* flex-wrap: nowrap;
+    border: 2px solid red; */
   }
 }
 </style>

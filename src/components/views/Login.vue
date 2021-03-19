@@ -25,22 +25,9 @@
                 <button class='btn loginBtn registerBtn' @click='registerUser()' :class="{'disable': informationComplete}">Sign Up</button>
             </div>
         </div>
-        <!-- // :class="{'welcomeAppear': welcomePopup}"-->
         <transition name='appearUP' > 
             <div class='welcomePopupArea' v-if='welcomePopup'  >
-                <div class='welcomePopup'>
-                    <div class='topPopup'>
-                        <img class='successLogo' src='../../assets/icons/cheer.png' />
-                        <h3>Success!</h3>
-                        <h4>Welcome {{ newUser.name ? newUser.name : loggedInUser.name }}</h4>
-                    </div>
-
-                    <p>Congratulations your account has been successfully set up.</p>
-                    <div class='viewShopBtn'>
-                    <button class='btn loginBtn shopBtn' @click='enterShop'>View Shop</button>
-
-                    </div>
-                </div>
+                <EnterPopup :popupObject='popupInfo'></EnterPopup>
             </div>
         </transition>
     </div>
@@ -48,6 +35,7 @@
 
 <script>
 import Notification from '../Designs/Notification.vue';
+import EnterPopup from '../Designs/EnterPopup.vue';
 export default {
     data() {
         return {
@@ -67,6 +55,10 @@ export default {
             showNotification: false,
             notificationType: '',
             notificationMessage: '',
+            popupInfo: {
+                userName: '',
+                message: ''
+            }
         }
     },
     methods: {
@@ -111,6 +103,9 @@ export default {
                 console.log('user data: ');
                 console.log(data);
                 this.loggedInUser = data;
+                const sendName = data.name.split(' ')[0];
+                this.popupInfo.userName = ` Back ${sendName}`;
+                this.popupInfo.message = 'We hope you enjoy shopping with us again.';
                 this.welcomePopup = true;
             })
             .catch((err) => {
@@ -130,13 +125,15 @@ export default {
                     body: JSON.stringify(this.newUser)
                 })
                 .then((res) => {
-                    const resp = res.text();
-                    console.log(resp);
-                    return resp;
+                    return res.json();
+                    // return resp;
                 })
                 .then((key) => {
                     console.log('NEW USER DATA: ');
                     console.log(key);
+                    const sendName = key.name.split(' ')[0];
+                    this.popupInfo.userName = sendName;
+                    this.popupInfo.message = 'Congratulations your account has been successfully set up';
                     this.welcomePopup = true;
                     this.$emit('showNotification', 'success');
                 })
@@ -157,9 +154,7 @@ export default {
             }
             
         },
-        enterShop() {
-            this.$router.push('/shop');
-        }
+       
     },
     computed: {
         informationComplete() {
@@ -178,7 +173,8 @@ export default {
         }
     },
     components: {
-        Notification
+        Notification,
+        EnterPopup
     }
 }
 </script>
@@ -333,54 +329,6 @@ export default {
         background: white;
     }
 
-    /* .registerBtn:hover {
-        background: white;
-        color: #365a69;
-        border: 2px solid white;
-    } */
-
-     .welcomePopup {
-         position: relative;
-        width: 100%;
-        background: white;
-        color: white;
-        min-height: 300px;
-        border-radius: 10px;
-        transition: all 2s ease-in-out; 
-     }
-
-     .topPopup {
-        display: flex;
-        flex-direction: column;
-        align-items: center;  
-        justify-content: space-around;
-        height: 100%;
-        background: #365a69;
-        padding: 20px 0 10px 0; 
-        border-radius: 10px 10px 0 0;
-    }
-
-    .topPopup h3 {
-        text-transform: uppercase;
-        letter-spacing: 3px;
-    }
-
-    .welcomePopup p {
-        color: #666666;
-        padding: 10px 50px;
-    }
-
-    .successLogo {
-        width: 50px;
-        height: 50px;
-    }
-
-    .viewShopBtn {
-        width: 50%;
-        margin: 0 auto;
-        padding: 10px 0 30px;
-    }
-
     .disable {
         border: 2px solid #ccc;
         color: #ccc;
@@ -395,5 +343,9 @@ export default {
         cursor: not-allowed;
         pointer-events: none;
         background: none;
+    }
+
+    @media screen and (max-width: 700px) {
+        
     }
  </style>
