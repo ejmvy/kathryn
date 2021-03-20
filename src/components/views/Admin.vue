@@ -16,7 +16,9 @@
             <div class='line'></div>
             <img @click='changeWindow(1)' class='headerLogo' src='../../assets/icons/file-green.png' />
             <div class='line'></div>
-            <img @click='changeWindow(2)' class='headerLogo' src='../../assets/icons/list-green.png' />
+            <img @click='changeWindow(2)' class='headerLogo' src='../../assets/icons/graph.png' />
+            <div class='line'></div>
+            <img @click='changeWindow(3)' class='headerLogo' src='../../assets/icons/list-green.png' />
         </div>
       </div>
 
@@ -30,7 +32,10 @@
                   <!-- <div  class='panel'>Orders Area</div> -->
               </transition>
               <transition :name="back ? 'slideback' : 'slide'">
-                  <OrderHistoryPanel class='panel' v-if='currentIndex === 2' key='3'></OrderHistoryPanel>
+                  <StatsPanel class='panel' v-if='currentIndex === 2' key='3'></StatsPanel>
+              </transition>
+              <transition :name="back ? 'slideback' : 'slide'">
+                  <OrderHistoryPanel class='panel' v-if='currentIndex === 3' key='4'></OrderHistoryPanel>
                   <!-- <div  class='panel'>History</div> -->
               </transition>
           </div>
@@ -50,6 +55,7 @@ import AdminHeader from '../AdminPage/AdminHeader.vue';
 import AdminConfigPangel from '../AdminPage/AdminConfigPanel.vue';
 import RecentOrderPanel from '../AdminPage/RecentOrderPanel.vue';
 import OrderHistoryPanel from '../AdminPage/OrderHistoryPanel.vue';
+import StatsPanel from '../AdminPage/StatsPanel.vue';
 import Notification from '../../components/Designs/Notification.vue';
 export default {
   data() {
@@ -117,7 +123,8 @@ export default {
     Notification,
     AdminConfigPangel,
     RecentOrderPanel,
-    OrderHistoryPanel
+    OrderHistoryPanel,
+    StatsPanel
   },
 };
 </script>
@@ -154,6 +161,7 @@ export default {
 }
 
 .headerLogos {
+    /* position: relative; */
     display: flex;
     justify-content: space-between;
     align-items: center;

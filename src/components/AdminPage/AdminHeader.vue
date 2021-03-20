@@ -83,6 +83,7 @@ export default {
         padding: 0 20px;
         align-items: center;
         margin-bottom: 30px;
+        box-shadow: 0 5px 10px 5px #ccc;
     }
 
     .headerIcon {

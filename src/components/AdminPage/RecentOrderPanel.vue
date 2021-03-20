@@ -8,6 +8,7 @@
                 <div class='headerLine'>
                     <div  class='leftAlign chunk'>Customer</div>
                     <div  class='chunk'>Items</div>
+                    <div  class='chunk'>Amount</div>
                     <div  class='chunk'>Order Date</div>
                     <div class='chunk'>Mark As Delivered</div>
                     <div  class='openIcon'> </div>
@@ -17,6 +18,7 @@
                     <div class='mainLine'>
                         <div class='leftAlign chunk'>{{ item.customerName }}</div>
                         <div class='chunk'>{{ item.products.length }}</div>
+                        <div class='chunk'>{{ item.totalAmount }}</div>
                         <div class='chunk'>{{ item.orderDate }}</div>
                         <input class='chunk' type='checkbox'>
                         <img @click='item.showDetails = !item.showDetails' class='openIcon' src='../../assets/icons/right.png' :class="{'rotateArrow': item.showDetails}"/>
@@ -30,6 +32,7 @@
                                 <div>{{ product.name }}</div>
                                 <div>{{ product.quantity }}</div>
                                 <div>{{ product.colour }}</div>
+                                <div>{{ product.price }}</div>
                             </div>
                         </div>
                         <div class='borderLine'></div>
@@ -66,18 +69,21 @@ export default {
                     customerEmail: 'ej@gmail.com',
                     customerTel: '0851417730',
                     orderDate: '2021-03-03 12:30:00',
+                    totalAmount: '€243',
                     products: [
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         },
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         }
                     ],
                     isDelivered: false,
@@ -91,12 +97,14 @@ export default {
                     customerEmail: 'ej@gmail.com',
                     customerTel: '0851417730',
                     orderDate: '2021-03-03 12:30:00',
+                    totalAmount: '€81',
                     products: [
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         }
                     ],
                     isDelivered: false,
@@ -110,30 +118,35 @@ export default {
                     customerEmail: 'ej@gmail.com',
                     customerTel: '0851417730',
                     orderDate: '2021-03-03 12:30:00',
+                    totalAmount: '€45',
                     products: [
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         },
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         },
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         },
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         }
                     ],
                     isDelivered: false,
@@ -147,18 +160,21 @@ export default {
                     customerEmail: 'ej@gmail.com',
                     customerTel: '0851417730',
                     orderDate: '2021-03-03 12:30:00',
+                    totalAmount: '€132',
                     products: [
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         },
                         {
                             name: 'Bowl 1',
                             quantity: 2,
                             description: 'Serving Bowl',
-                            colour: 'Teal'
+                            colour: 'Teal',
+                            price: '12.99',
                         }
                     ],
                     isDelivered: false,
@@ -172,6 +188,13 @@ export default {
 
 
 <style scoped>
+
+h5 {
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #666666;
+    margin-top: 0;
+}
 .orderPanel {
   display: flex;
   flex-direction: column;
