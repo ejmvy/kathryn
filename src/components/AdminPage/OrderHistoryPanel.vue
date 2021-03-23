@@ -8,8 +8,9 @@
                <tr>
                    <th>Order</th>
                    <th>Recipient</th>
-                   <th>Date</th>
+                   <th>Ordered</th>
                    <th>Status</th>
+                   <th>Delivered</th>
                    <th>Items</th>
                    <th>Total</th>
                    <th></th>
@@ -42,21 +43,28 @@
                    <td>{{ order.customerName }}</td>
                    <td>{{ order.orderDate }}</td>
                    <td>{{ order.isDelivered ? 'Delivered' : 'In Progress' }}</td>
+                   <td>{{ order.deliveredDate }}</td>
                    <td>{{ order.products.length }}</td>
                    <td>{{ order.totalAmount }}</td>
                    <td>
-                       <img class='viewIcon' src='../../assets/icons/view.png' />
+                       <img class='viewIcon' src='../../assets/icons/view.png' @click='viewDetails(order)' />
                    </td>
                </tr>
            </table>
+           <ViewOrderCard v-if="showViewPanel" :orderDetails="viewOrder" @closePopup='exitPopup'></ViewOrderCard>
         </div>
+        
     </div>
 </template>
 
 <script>
+import ViewOrderCard from '../Designs/ViewOrderCard.vue';
+
 export default {
     data: () => ({ 
         showSearch: false, 
+        viewOrder: {},
+        showViewPanel: false,
         orders: [
             {
                 orderNumber: '#1456',
@@ -67,6 +75,7 @@ export default {
                 customerEmail: 'ej@gmail.com',
                 customerTel: '0851417730',
                 orderDate: '2021-03-03 12:30:00',
+                deliveredDate: '2021-03-05',
                 totalAmount: '€243',
                 products: [
                     {
@@ -96,9 +105,24 @@ export default {
                 customerEmail: 'ej@gmail.com',
                 customerTel: '0851417730',
                 orderDate: '2021-03-03 12:30:00',
+                deliveredDate: '2021-03-05',
                 totalAmount: '€72',
                 products: [
                     {
+                        name: 'Bowl 1',
+                        quantity: 2,
+                        description: 'Serving Bowl',
+                        colour: 'Teal',
+                        price: '12.99',
+                    },
+                    {
+                        name: 'Bowl 1',
+                        quantity: 2,
+                        description: 'Serving Bowl',
+                        colour: 'Teal',
+                        price: '12.99',
+                    },
+                     {
                         name: 'Bowl 1',
                         quantity: 2,
                         description: 'Serving Bowl',
@@ -125,6 +149,7 @@ export default {
                 customerEmail: 'ej@gmail.com',
                 customerTel: '0851417730',
                 orderDate: '2021-03-03 12:30:00',
+                deliveredDate: '2021-03-05',
                 totalAmount: '€16',
                 products: [
                     {
@@ -154,6 +179,7 @@ export default {
                 customerEmail: 'ej@gmail.com',
                 customerTel: '0851417730',
                 orderDate: '2021-03-03 12:30:00',
+                deliveredDate: '2021-03-05',
                 totalAmount: '€66',
                 products: [
                     {
@@ -183,6 +209,7 @@ export default {
                 customerEmail: 'ej@gmail.com',
                 customerTel: '0851417730',
                 orderDate: '2021-03-03 12:30:00',
+                deliveredDate: '2021-03-05',
                 totalAmount: '25',
                 products: [
                     {
@@ -212,6 +239,7 @@ export default {
                 customerEmail: 'ej@gmail.com',
                 customerTel: '0851417730',
                 orderDate: '2021-03-03 12:30:00',
+                deliveredDate: '2021-03-05',
                 totalAmount: '€73',
                 products: [
                     {
@@ -233,7 +261,21 @@ export default {
                 showDetails: false,
             }
         ]
-    })
+    }),
+
+    methods: {
+        viewDetails(order) {
+            this.viewOrder = order;
+            this.showViewPanel = true;
+        },
+        exitPopup() {
+            console.log("EXTT");
+            this.showViewPanel = false;
+        },
+    },
+    components: {
+        ViewOrderCard
+    }
 }
 </script>
 
@@ -259,6 +301,7 @@ table {
     /* border: 2px solid yellow; */
     width: 100%;
     border: none;
+    margin-top: 20px;
     transition: all 2s ease-in-out;
 }
 
@@ -285,6 +328,7 @@ table tr:hover {
     height: 30px;
     position: absolute;
     right: 0;
+    top: 10px;
     cursor: pointer;
     transition: all .5s ease-in-out;
 }

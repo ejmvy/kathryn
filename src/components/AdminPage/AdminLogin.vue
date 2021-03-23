@@ -50,10 +50,22 @@ export default {
             })
             .then((key) => {
                 console.log(key);
-                this.checkAdminDetails(key);
+                if (key !== 'Invalid email or password') {
+                    this.checkAdminDetails(key);
+                } else {
+                    this.showLocalNotification({
+                        type: false,
+                        message: 'User not recognised.'
+                    })
+                }
+                
             })
             .catch((err => {
                 console.log(`error: ${err}`);
+                this.showLocalNotification({
+                    type: false,
+                    message: 'User not recognised.'
+                })
             }))
             
         },
@@ -70,15 +82,11 @@ export default {
             .then((user) => {
                 console.log(user);
                 if (user.isAdmin) {
-                    this.$emit('loggedIn');
-                    // this.$emit('notificationPopup', {
-                    //     type: true,
-                    //     message: 'Welcome Kathryn!'
-                    // });
                     this.showLocalNotification({
                         type: true,
                         message: 'Welcome Kathryn!'
                     })
+                    this.$emit('loggedIn');
                 } else {
                     this.showLocalNotification({
                         type: false,

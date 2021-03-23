@@ -3,16 +3,16 @@
         <div class='orderPanel'>
             <h5 class='topHeader'>This Month</h5>
             <div class='statsArea'>
-                <StatCard :cardObject="totalSales"></StatCard>
-                <StatCard :cardObject="newUsers"></StatCard>
-                <StatCard :cardObject="monthlyIncome"></StatCard>
+                <StatCard class='statCard' :cardObject="totalSales"></StatCard>
+                <StatCard class='statCard' :cardObject="newUsers"></StatCard>
+                <StatCard class='statCard' :cardObject="monthlyIncome"></StatCard>
             </div>
 
             <h5 class='padTop'>Popular Products this month</h5>
             <div class='statsArea'>
-                <StatCard :cardObject="top1"></StatCard>
-                <StatCard :cardObject="top2"></StatCard>
-                <StatCard :cardObject="top3"></StatCard>
+                <StatCard class='statCard' :cardObject="top1"></StatCard>
+                <StatCard class='statCard' :cardObject="top2"></StatCard>
+                <StatCard class='statCard' :cardObject="top3"></StatCard>
             </div>
         </div>
     </div>
@@ -104,6 +104,18 @@ h5 {
 
 .topHeader {
     margin: 0 0 40px 0;
+}
+
+@media screen and (max-width: 1000px) {
+    .statsArea {
+        /* flex-direction: column; */
+        flex-wrap: wrap;
+
+    }
+    .statCard {
+        margin-top: 30px;
+    }
+   
 }
 
 

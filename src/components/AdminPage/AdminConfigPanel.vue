@@ -188,6 +188,7 @@ export default {
           type: true,
           message: "New Details saved!"
         }
+        console.log(noteObj);
         this.$emit('notificationPopup', noteObj);
 
       })
@@ -197,6 +198,7 @@ export default {
           type: false,
           message: "Information not saved."
         }
+        console.log(noteObj);
         this.$emit('notificationPopup', noteObj);
       })
     },
@@ -218,6 +220,7 @@ export default {
             type: true,
             message: "New Product saved!"
           }
+          console.log(noteObj);
           this.$emit('notificationPopup', noteObj);
       })
       .catch((err) => {
@@ -226,6 +229,7 @@ export default {
           type: false,
           message: "Information not saved."
         }
+        console.log(noteObj);
         this.$emit('notificationPopup', noteObj);
       })
     }
@@ -337,7 +341,7 @@ button {
 
 .categoryPadding {
   position: absolute;
-  bottom: 20%;
+  bottom: 25%;
   padding: 5px 15px;
 }
 

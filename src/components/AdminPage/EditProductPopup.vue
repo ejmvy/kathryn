@@ -79,12 +79,10 @@
       
     </div>
 
-    <div class="ImageArea">
+    <div v-if='!isNewProduct' class="ImageArea">
       
       <div class='largeImageArea'>
-        <!--  -->
         <img v-if='editedProduct.imageUrlArray[0] || productObject.imageUrlArray[0]' class="productImage" :src='editedProduct.imageUrlArray[0] ? editedProduct.imageUrlArray[0] : productObject.imageUrlArray[0]' />
-
       </div>
         
       <div class='smallImageArea'>
@@ -108,6 +106,34 @@
           @change.prevent='onFilePicked'
           />
     </div>
+
+    <div v-if='isNewProduct' class="ImageArea">
+      
+      <div class='largeImageArea'>
+        <img class="productImage" />
+      </div>
+        
+      <div class='smallImageArea'>
+        <div class='smImageArea' @click.prevent='onPickFile2'>
+          <img class='smImage' />  
+        </div> 
+        <div class='smImageArea'>
+          <img class='smImage' />  
+        </div>
+        <div class='smImageArea'>
+          <img class='smImage' />  
+        </div>
+      </div>
+      <button class='btn contactBtn imageBtn' @click.prevent='onPickFile'>Upload Images</button>
+        <input
+          type='file'
+          style='display: none'
+          ref='fileInput'
+          accept='image/*'
+          multiple
+          @change.prevent='onFilePicked'
+          />
+    </div>
   </div>
 </template>
 
@@ -118,6 +144,7 @@ export default {
     return {
       imageUrl: '',
       imageRaw: null,
+      isNewProduct: false,
       editTitle: 'Edit ',
       addTitle: 'Add New Product',
       editedProduct: {
@@ -219,7 +246,9 @@ export default {
   },
   created() {
       console.log('EDIT OBJECT:')
-      console.log(this.productObject);
+      const objKeys = Object.keys(this.productObject);
+      this.isNewProduct = objKeys.length ? false : true;
+      console.log(this.isNewProduct);
   }
 };
 </script>

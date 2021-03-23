@@ -31,7 +31,6 @@ export default {
 
     .statCard {
         border: 1px solid #ccc;
-        /* box-shadow: 0px 0px 3px #ccc; */
         box-shadow: 2px 4px 5px 0px rgba(184,184,184,0.75);
         padding: 10px 30px;
         background: white;
@@ -87,6 +86,12 @@ export default {
     line-height: 0;
     color: rgba(32, 72, 88, 0.7);
     margin-top: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+    /* .statCard {
+        margin-top: 30px;
+    } */
 }
 
 </style>

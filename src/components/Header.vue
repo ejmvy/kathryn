@@ -127,7 +127,7 @@ header .headerArea nav li {
   list-style: none;
   font-size: 17px;
   text-transform: uppercase;
-  margin: 0 30px;
+  margin: 0 20px;
   font-family: "Nova Mono", monospace;
   padding: 20px 0;
   z-index: 3;

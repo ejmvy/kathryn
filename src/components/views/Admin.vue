@@ -24,20 +24,20 @@
 
       <div class='panelDisplay'>
           <div class='adminArea'>
-              <transition :name="back ? 'slideback' : 'slide'">
+              <!-- <transition :name="back ? 'slideback' : 'slide'"> -->
                 <AdminConfigPangel class='panel' v-if='currentIndex === 0' key='1' @notificationPopup='showNotificationPopup'></AdminConfigPangel>
-              </transition>
-              <transition :name="back ? 'slideback' : 'slide'">
+              <!-- </transition>
+              <transition :name="back ? 'slideback' : 'slide'"> -->
                 <RecentOrderPanel class='panel' v-if='currentIndex === 1' key='2'></RecentOrderPanel>
                   <!-- <div  class='panel'>Orders Area</div> -->
-              </transition>
-              <transition :name="back ? 'slideback' : 'slide'">
+              <!-- </transition>
+              <transition :name="back ? 'slideback' : 'slide'"> -->
                   <StatsPanel class='panel' v-if='currentIndex === 2' key='3'></StatsPanel>
-              </transition>
-              <transition :name="back ? 'slideback' : 'slide'">
+              <!-- </transition>
+              <transition :name="back ? 'slideback' : 'slide'"> -->
                   <OrderHistoryPanel class='panel' v-if='currentIndex === 3' key='4'></OrderHistoryPanel>
                   <!-- <div  class='panel'>History</div> -->
-              </transition>
+              <!-- </transition> -->
           </div>
 
       </div>
@@ -146,17 +146,19 @@ export default {
 
 .adminPanelArea {
   position: absolute;
+  top: 10%;
   width: 100%;
-  height: 100%;
-  margin-top: 100px;
+  min-height: 100%;
+  /* margin-top: 100px; */
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: space-between; */
   align-items: center;
-  padding-top: 40px;
+  /* padding-top: 40px; */
 }
 
 .logoArea {
+
   width: 50%;
 }
 
@@ -189,10 +191,10 @@ export default {
 }
 
 .panelDisplay {
-    position: relative;
+    position: absolute;
     top: 5%;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     margin-top: 30px;
     background: #f8f8f8;
     padding: 30px 20px 0 20px;
@@ -205,7 +207,7 @@ export default {
     overflow: hidden;
     /* top: 20%; */
     width: 95%;
-    height: 100%;
+    /* height: 100%; */
     /* border: 2px solid red; */
     /* height: 100%; */
     

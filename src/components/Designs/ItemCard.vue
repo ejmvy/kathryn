@@ -7,9 +7,6 @@
   </router-link>
   <h3>{{ displayItem.name }}</h3>
   <p>{{ displayItem.price }}</p>
-  <button class="btn smBtn" @click="addItemToCart(displayItem)">
-    Add to Cart
-  </button>
 </template>
 
 <script>
@@ -39,7 +36,8 @@ export default {
 .itemImage {
   width: 250px;
   height: 200px;
-  box-shadow: 0 0 4px #666666;
+  /* box-shadow: 0 0 4px #666666; */
+  box-shadow: 2px 4px 5px 0px rgba(184,184,184,0.75);
   /* margin-top: 50px; */
   cursor: pointer;
   margin: 80px 30px 0 30px;
@@ -65,8 +63,5 @@ p {
     margin: 0;
   }
 
-  .smBtn {
-    margin-bottom: 30px;
-  }
 }
 </style>
