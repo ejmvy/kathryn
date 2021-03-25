@@ -210,4 +210,11 @@ header .headerArea nav li:hover a {
     height: 18px;
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .cartImport {
+    position: absolute;
+    
+  }
+}
 </style>

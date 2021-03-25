@@ -341,10 +341,8 @@ button {
 
 .inputArea {
   flex: 1 1 50%;
-  /* width: 100%; */
   display: flex;
   flex-direction: column;
-  /* padding: 0; */
   padding: 0 10px;
 }
 

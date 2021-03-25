@@ -104,7 +104,7 @@ section {
   /* border: 2px solid red; */
 }
 
-@media only screen and (min-width:1200px) {
+@media screen and (min-width:1200px) {
   .indexMain {
     display: flex;
     flex-direction: column;

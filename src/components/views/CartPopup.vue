@@ -3,7 +3,7 @@
     <div class="arrow"></div>
    <!-- //v-if='mobileWidth' -->
       <div class='closeBtnArea'> 
-        <img @click='$emit("closePopup")' class='smallIcon' src='../../assets/icons/close-grey.png' />
+        <img @click='$emit("closePopup")' class='xmIcon' src='../../assets/icons/close-grey.png' />
       </div>
     <div class='topLine'>
       <div class='iconArea'>
@@ -200,6 +200,11 @@ p {
   height: 25px;
 }
 
+.xmIcon {
+  width: 20px;
+  height: 20px;
+}
+
 .closeBtnArea {
   position: absolute;
   right: 5px;
@@ -222,6 +227,13 @@ p {
   }
   .topLine {
     margin-top: 20px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .cartArea {
+    position: fixed;
+    max-width: 400px;
   }
 }
 

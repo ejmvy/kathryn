@@ -7,6 +7,7 @@ import Admin from '@/components/views/Admin.vue';
 import CartView from '@/components/views/CartView.vue';
 import ShowCollection from '@/components/views/ShowCollection.vue';
 import Login from '@/components/views/Login.vue';
+import Payment from '@/components/CartSection/Payment.vue';
 
 
 const routes = [
@@ -49,6 +50,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login,
+    },
+    {
+        path: '/payment',
+        name: 'Payment',
+        component: Payment,
     },
 ]
 

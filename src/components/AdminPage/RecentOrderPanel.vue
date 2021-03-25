@@ -198,11 +198,9 @@ h5 {
 .orderPanel {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
-  /* margin: 40px; */
   height: 100%;
-  width: 100%;
-  /* border: 2px solid green; */
+  width: 98%;
+  margin: 0 auto;
   align-items: center;
 }
 
@@ -213,7 +211,6 @@ h5 {
 
 .headerLine {
     display: flex;
-    /* border: 1px solid blue; */
     justify-content: space-between;
     margin-bottom: 40px;
 }
@@ -227,11 +224,9 @@ h5 {
 
 .mainLine {
     display: flex;
-    /* border: 1px solid red; */
     justify-content: space-between;
     padding: 15px 0;
     font-size: 14px;
-    /* border-bottom: 1px solid #ccc; */
     border-bottom: 1px solid rgba(32, 72, 88, 0.5);
 }
 
@@ -253,6 +248,9 @@ h5 {
     padding: 40px 0;
     font-size: 14px;
     /* background: white; */
+    box-shadow: 0px 0px 4px 0px rgba(196, 195, 195, 0.75);
+    /* background: white; */
+    margin-bottom: 30px;
 }
 
 .productInfo {
@@ -275,6 +273,7 @@ h5 {
 }
 
 .customerInfo {
+    flex:1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -282,7 +281,7 @@ h5 {
 }
 
 .borderLine {
-    height: 200px;
+    min-height: 200px;
     width: 1px;
     margin: 0 5% 0 5%;
     background: #ccc
@@ -298,4 +297,15 @@ h5 {
   transform: rotate(90deg);
 }
 
+.openItem {
+    background: white;
+    /* border: 2px solid red; */
+}
+
+@media screen and (min-width:1200px) {
+  .orderPanel {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
 </style>

@@ -399,4 +399,11 @@ button {
 .appear-leave-active {
     animation: appear 2s reverse;
 } */
+
+@media screen and (min-width:1200px) {
+  .adminPanel {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
 </style>

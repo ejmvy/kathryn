@@ -7,7 +7,7 @@
                 </router-link>
             </div>
          <div class='purchases'>
-            <table>
+            <table v-if='paymentStep === 1'>
                 <tr class='headerTitle'>
                     <td class='alignLeft'>Product</td>
                     <td>Price</td>
@@ -47,6 +47,7 @@
                     <img class='downIcon' src='../../assets/icons/down-green.png' />
                 </div>
             </table>
+            <AddressDetails v-if='paymentStep === 2' @addressConfirmed='addressDetailsConfirmed'></AddressDetails>
          </div>
          <div class='buySection'>
              <div v-if='!mobileWidth' class='topIcon'>
@@ -60,8 +61,10 @@
                     <p>Shipping & Postage Included</p>
                 </div>
                 <div class='checkoutBtns'>
-                    <button class='btn contactBtn'>Checkout</button>
-                    <!-- <button >PayPal</button> -->
+                    <button v-if='paymentStep === 1' class='btn contactBtn' @click='paymentStep = 2'>Checkout</button>
+                    <router-link to='/payment'>
+                        <button v-if='paymentStep === 2' class='btn contactBtn backwards' :disabled="isDisabled" :class="{'btnDisabled': !detailsConfirmed}">Continue</button>
+                    </router-link>
                 </div>
 
              </div>
@@ -72,6 +75,7 @@
 </template>
 
 <script>
+import AddressDetails from '../CartSection/AddressDetails.vue';
 export default {
     data() {
         return {
@@ -79,6 +83,8 @@ export default {
             total: 0,
             isRemoved: false,
             windowWidth: window.innerWidth,
+            paymentStep: 1,
+            detailsConfirmed: false,
         }
     },
     mounted() {
@@ -112,9 +118,12 @@ export default {
             })
             
             this.cartItems.splice(idx, 1);
-            
-            // this.isRemoved = false;
+        },
+        addressDetailsConfirmed() {
+            console.log('Details Confirmed');
+            this.detailsConfirmed = true;
         }
+
     },
     computed: {
         getTotal: function() {
@@ -127,6 +136,9 @@ export default {
         },
          mobileWidth() {
         return this.windowWidth <= 750;
+        },
+        isDisabled() {
+            return this.detailsConfirmed ? false : true;
         }
     },
     created() {
@@ -138,6 +150,9 @@ export default {
                 this.cartItems = data;
                 console.log('cart: ', this.cartItems);
             })
+    },
+    components: {
+        AddressDetails
     }
 }
 </script>
@@ -378,6 +393,19 @@ tr {
 
 .removeAppear .removeBtn {
   opacity: 1;
+}
+
+button:disabled {
+    border: 2px solid #ccc;
+    color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+    background: none;
+}
+
+.backwards {
+    background: white;
+    color: #365a69;
 }
 
 
