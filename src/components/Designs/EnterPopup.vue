@@ -39,6 +39,7 @@ export default {
         min-height: 300px;
         border-radius: 10px;
         transition: all 2s ease-in-out; 
+        box-shadow: 10px 10px 51px -3px rgba(49,48,48,0.75); 
         /* min-width: 300px; */
      }
 

@@ -28,6 +28,12 @@ export default {
   margin: 20px;
 }
 
+@media screen and (max-width: 700px) {
+  .displayImg {
+    margin: 20px 0;
+  }
+}
+
 @media screen and (max-width: 370px) {
   .displayImg {
     width: 300px;

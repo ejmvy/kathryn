@@ -2,6 +2,9 @@
   <router-link :to="{ name: 'ItemDisplay', params: { id: displayItem._id } }">
     <!-- <img class='itemImage' :src='require(`../../assets/${displayItem.img}`)' /> -->
    <div class='imageArea'>
+     <div class='hoverBtn'>
+       <button class='btn whiteBtn'>View</button>
+     </div>
     <img class="itemImage" :src="displayItem.imageUrl" />
    </div>
   </router-link>
@@ -33,14 +36,47 @@ export default {
 </script>
 
 <style scoped>
+
+.imageArea {
+  width: 250px;
+  height: 200px;
+  margin: 20px;
+}
+
+.hoverBtn {
+  opacity: 0;
+  position: absolute;
+  width: 250px;
+  height: 200px;
+  background: rgba(251,251,251,0.5);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+
+}
+
+.hoverBtn:hover {
+  opacity: 1
+}
+
+.whiteBtn {
+  background: none;
+  border: 2px solid white;
+  padding: 5px 20px;
+  font-size: 20px;
+  margin-top: 0;
+  color: white;
+  /* border-radius: 15px; */
+}
+
 .itemImage {
   width: 250px;
   height: 200px;
-  /* box-shadow: 0 0 4px #666666; */
   box-shadow: 2px 4px 5px 0px rgba(184,184,184,0.75);
-  /* margin-top: 50px; */
   cursor: pointer;
-  margin: 80px 30px 0 30px;
+  /* margin: 80px 30px 0 30px; */
 }
 
 p {
@@ -56,6 +92,12 @@ p {
     justify-content: center;
 
   }
+
+  .hoverBtn  {
+    min-width: 300px;
+    height: 250px;
+  }
+
   .itemImage {
     width: 100%;
     height: 100%;

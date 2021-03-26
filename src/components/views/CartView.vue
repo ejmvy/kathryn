@@ -199,6 +199,8 @@ button {
   width: 100%;
   height: 100%;
   background: rgba(32, 72, 88, 0.7);
+  /* background: rgb(102,175,227);
+background: linear-gradient(90deg, rgba(102,175,227,1) 0%, rgba(86,131,149,1) 0%, rgba(110,157,191,1) 100%); */
 
   display: flex;
   justify-content: center;

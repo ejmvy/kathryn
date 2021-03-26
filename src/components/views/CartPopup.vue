@@ -134,7 +134,7 @@ p {
   border-bottom: 1px solid #ccc;
   align-items: center;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 10px 15px 0 15px;
 }
 
 .iconArea {

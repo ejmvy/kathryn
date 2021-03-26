@@ -245,7 +245,7 @@ h5 {
     width: 100%;
     height: 100%;
     display: flex;
-    padding: 40px 0;
+    padding: 40px;
     font-size: 14px;
     /* background: white; */
     box-shadow: 0px 0px 4px 0px rgba(196, 195, 195, 0.75);

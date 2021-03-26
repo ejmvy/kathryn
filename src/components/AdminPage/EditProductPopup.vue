@@ -303,7 +303,7 @@ form {
 
 .largeImageArea {
   height: 50%;
-  border: 2px solid #ccc;
+  border: 2px solid #ccc; 
   border-style: dashed;
   width: 100%;
   border-radius: 5px;
@@ -349,7 +349,6 @@ button {
 input {
   width: 100%;
   flex: 1 2 auto;
-  /* box-shadow: inset 0 0 5px #ccc; */
   padding: 15px 0 10px 5px;
   border: none;
   border-bottom: 1px solid #ccc;

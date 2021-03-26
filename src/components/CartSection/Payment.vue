@@ -57,17 +57,11 @@ export default {
 
 <style scoped>
 
-/* primary: #a469c3 */
-/* #b395e7 */
-
 .paymentBG {
   position: absolute;
-  /* z-index: 5; */
   width: 100%;
   height: 100%;
-  /* background: rgba(32, 72, 88, 0.7); */
-  background: rgb(164,105,195);
-  background: linear-gradient(90deg, rgba(164,105,195,1) 0%, rgba(179,149,231,1) 100%, rgba(78,128,149,1) 100%);
+  background: rgba(32, 72, 88, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,7 +71,6 @@ export default {
   width: 450px;
   height: 300px;
   background: rgb(248, 243, 243);
-  /* //(90,89,89,0.75); */
   box-shadow: 10px 10px 51px -3px rgba(49,48,48,0.75); 
   display: flex;
   flex-direction: column;
@@ -161,7 +154,8 @@ label {
   border-width: 2px;
 }
 .border-gradient-purple {
-  border-image-source: linear-gradient(90deg, rgba(164,105,195,1) 0%, rgba(179,149,231,1) 100%, rgba(78,128,149,1) 100%);
+    border-image-source: linear-gradient(90deg, rgba(102,175,227,1) 0%, rgba(86,131,149,1) 100%, rgba(110,157,191,1) 100%);
+  /* border-image-source: linear-gradient(90deg, rgba(164,105,195,1) 0%, rgba(179,149,231,1) 100%, rgba(78,128,149,1) 100%); */
   /* linear-gradient(to left, #743ad5, #d53a9d); */
 }
 
@@ -174,7 +168,8 @@ label {
 }
 
 .stripeLogo {
-    background: linear-gradient(90deg, rgba(164,105,195,1) 0%, rgba(179,149,231,1) 100%, rgba(78,128,149,1) 100%);
+    /* background: linear-gradient(90deg, rgba(164,105,195,1) 0%, rgba(179,149,231,1) 100%, rgba(78,128,149,1) 100%); */
+    background: linear-gradient(90deg, rgba(102,175,227,1) 0%, rgba(86,131,149,1) 100%, rgba(110,157,191,1) 100%);
     color: white;
     font-weight: bold;
     font-size: 12px;
@@ -194,8 +189,9 @@ label {
 }
 
 .payButtonArea {
-    background: rgb(170,129,240);
-    background: linear-gradient(90deg, rgba(170,129,240,1) 0%, rgba(92,204,251,1) 100%, rgba(164,105,195,1) 100%);
+    background: #365a69;
+    /* background: rgb(170,129,240); */
+    /* background: linear-gradient(90deg, rgba(170,129,240,1) 0%, rgba(92,204,251,1) 100%, rgba(164,105,195,1) 100%); */
     padding: 0px 20px;
     width: 250px;
     position: relative;
@@ -206,10 +202,15 @@ label {
     justify-content: space-around;
     box-shadow: 14px 31px 46px -17px rgba(69,69,69,0.75);
     cursor: pointer;
+    transition: all 0.5s ease-in-out;
 }
 
 .payButtonArea  p {
     color: white;
     font-size: 20px;
+}
+
+.payButtonArea:hover {
+    transform: scale(1.05);
 }
 </style>

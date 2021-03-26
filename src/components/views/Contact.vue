@@ -154,28 +154,33 @@ label {
   padding-bottom: 20px;
 }
 
-input {
-  /* flex: 1; */
-  height: 30px;
-  width: 100%;
+
+
+input, textarea {
   min-width: 200px;
-  border: 1px solid #f2f2f2;
-  background: #f2f2f2;
-  border-radius: 5px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  border-bottom: 1px solid #f2f2f2;
 }
 
 textarea {
   height: 90px;
-  min-width: 200px;
-  border: 1px solid #f2f2f2;
-  background: #f2f2f2;
-  border-radius: 5px;
+}
+
+input {
+  height: 30px;
+  width: 100%;
 }
 
 input:focus,
 textarea:focus {
-  background: white;
+border-bottom: 2px solid white;
   outline: none;
+  
+  
 }
 
 .icons {
