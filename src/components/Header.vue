@@ -15,8 +15,11 @@
         <li>
           <a href="#">Gallery</a>
         </li>
-        <li>
-          <router-link to="/login">
+        <li >
+          <router-link v-if='!checkLoggedIn' to='/login'>
+            <img class='userLogo' src='../assets/icons/userIcon.png' />
+          </router-link>
+          <router-link v-if='checkLoggedIn' to='/userprofile'>
             <img class='userLogo' src='../assets/icons/userIcon.png' />
           </router-link>
         </li>
@@ -35,10 +38,14 @@
           <img class='userLogo' src='../assets/icons/hamburger.png' />
         </li>
         <li>
-          <router-link to="login">
+            <img  class='userLogo middleLink' src='../assets/icons/userIcon.png' />
+         
+        </li>
+        <!-- <li v-if='$store.state.user.userData._id'>
+          <router-link to="userprofile">
             <img class='userLogo middleLink' src='../assets/icons/userIcon.png' />
           </router-link>
-        </li>
+        </li> -->
         <li>
           <a href="#">
             <img
@@ -79,10 +86,18 @@ export default {
     openCart() {
       this.cartOpen = !this.cartOpen;
     },
+    showUser() {
+      console.log(`user logged: `, this.$store.state.user);
+    }, 
   },
   computed: {
     mobileWidth() {
       return this.windowWidth <= 600;
+    },
+    checkLoggedIn() {
+        console.log("LOGGED IN:");
+        console.log(this.$store.state.user);
+        return this.$store.state.user.userData._id;
     }
   },
   components: {

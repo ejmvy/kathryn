@@ -135,10 +135,10 @@ export default {
             this.toLogin = true;
             this.toRegister = false;
         },
-        loginUserFn(e) {
+        async loginUserFn(e) {
             e.preventDefault();
             console.log('LOGGING in');
-            fetch('http://localhost:3000/api/auth', {
+            await fetch('http://localhost:3000/api/auth', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ export default {
                 return resp;
             })
             .then((key) => {
-                
+                console.log('login key:' + key);
                 this.getUserDetails(key);
             })
             .catch((err => {
@@ -162,8 +162,7 @@ export default {
             }))
         },
         getUserDetails(key) {
-            console.log('LOGIN data: ');
-            console.log(key);
+            this.$store.state.user.userKey = key;
             fetch('http://localhost:3000/api/users/me', {
                 method: 'GET',
                 headers: {
@@ -175,9 +174,11 @@ export default {
                 return res.json();
             })
             .then((data) => {
-                console.log('user data: ');
-                console.log(data);
+                
                 this.loggedInUser = data;
+                this.$store.state.user.userData = data;
+                console.log('signin data: ');
+                console.log(this.$store.state.user);
                 const sendName = data.name.split(' ')[0];
                 this.popupInfo.userName = ` Back ${sendName}`;
                 this.popupInfo.message = 'We hope you enjoy shopping with us again.';
@@ -203,10 +204,10 @@ export default {
                     return res.json();
                     // return resp;
                 })
-                .then((key) => {
+                .then((newUser) => {
                     console.log('NEW USER DATA: ');
-                    console.log(key);
-                    const sendName = key.name.split(' ')[0];
+                    this.$store.state.user.userData = newUser;
+                    const sendName = newUser.name.split(' ')[0];
                     this.popupInfo.userName = sendName;
                     this.popupInfo.message = 'Congratulations your account has been successfully set up';
                     this.welcomePopup = true;
@@ -228,7 +229,7 @@ export default {
                 }, 2000)
             }
             
-        },
+        }
        
     },
     computed: {

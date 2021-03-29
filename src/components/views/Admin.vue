@@ -1,6 +1,6 @@
 <template >
   <div class="adminBg" :class='{"greenBg": !userLoggedIn}'>
-    <AdminLogin v-if='!userLoggedIn' @loggedIn='userLoggedIn = true'></AdminLogin>
+    <AdminLogin v-if='!userLoggedIn'></AdminLogin>
     <div class='noteAppear'>
       <transition name='appear' :duration="{ enter: 800, leave: 800 }">
         <Notification v-if='showNotification' :type='notificationType' :message='notificationMessage'></Notification>
@@ -63,7 +63,6 @@ export default {
       notificationType: '',
       showNotification: '',
       notificationMessage: '',
-      userLoggedIn: false,
       openConfigPanel: true,
       openOrderPanel: false,
       openHistoryPanel: false,
@@ -74,18 +73,18 @@ export default {
   methods: {
     changeWindow(newIdx) {
       if (this.currentIndex < newIdx) {
-          console.log("HIGHER");
+          // console.log("HIGHER");
           this.back = false;
-          console.log('BACK:' + this.back );
+          // console.log('BACK:' + this.back );
           this.currentIndex = newIdx;
       }
       else if (this.currentIndex > newIdx) {
-          console.log("LOWER");
+          // console.log("LOWER");
           this.back = true;
           
           this.currentIndex = newIdx;
       }
-      console.log(`CURRENT idx: ${this.currentIndex}`);
+      // console.log(`CURRENT idx: ${this.currentIndex}`);
     },
     showNotificationPopup(obj) {
       this.notificationType = obj.type;
@@ -108,7 +107,15 @@ export default {
     }
  
   },
+  computed: {
+    userLoggedIn() {
+      console.log(`user logged: ${this.$store.state.user.userData._id}`);
+      return this.$store.state.user.userData._id;
+
+    }
+  },
   created() {
+    
     fetch("http://localhost:3000/api/categories/")
       .then((res) => {
         return res.json();
@@ -116,6 +123,8 @@ export default {
       .then((data) => {
         this.categoryList = data;
       });
+
+    console.log(`user logged: `, this.$store.state.user);
   },
   components: {
     AdminLogin,

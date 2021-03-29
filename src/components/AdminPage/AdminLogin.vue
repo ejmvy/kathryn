@@ -70,6 +70,7 @@ export default {
             
         },
         checkAdminDetails(key) {
+            this.$store.state.user.userKey = key;
             fetch('http://localhost:3000/api/users/me', {
                 method: "GET",
                 headers: {
@@ -86,7 +87,8 @@ export default {
                         type: true,
                         message: 'Welcome Kathryn!'
                     })
-                    this.$emit('loggedIn');
+                    this.$store.state.user.userData = user;
+                    // this.$emit('loggedIn');
                 } else {
                     this.showLocalNotification({
                         type: false,
